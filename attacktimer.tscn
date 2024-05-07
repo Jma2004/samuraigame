@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhq7retdsdkb7"]
+
+[ext_resource type="Script" path="res://attacktimer.gd" id="1_j84fg"]
+
+[node name="Timer" type="Timer"]
+autostart = true
+script = ExtResource("1_j84fg")

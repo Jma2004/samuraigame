@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://m5rb2vwhtbfb"]
+
+[ext_resource type="Script" path="res://sword.gd" id="1_qvuha"]
+[ext_resource type="Texture2D" uid="uid://6xcbj26yqn2y" path="res://spritesheets/parryeffect.png" id="2_jv05p"]
+[ext_resource type="AudioStream" uid="uid://c3qh7asbp5byf" path="res://soundeffects/parry.mp3" id="3_ijdlf"]
+[ext_resource type="AudioStream" uid="uid://5ww3j1135q0y" path="res://soundeffects/swordswing.mp3" id="4_myxyq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svvlb"]
+size = Vector2(120, 188)
+
+[sub_resource type="Animation" id="Animation_vmveh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(50, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ylpxy"]
+resource_name = "parryeffect"
+length = 0.1
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0132527, 0.0289968, 0.06, 0.08, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(50, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t7pux"]
+_data = {
+"RESET": SubResource("Animation_vmveh"),
+"parryeffect": SubResource("Animation_ylpxy")
+}
+
+[node name="sword" type="Area2D"]
+collision_mask = 0
+script = ExtResource("1_qvuha")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_svvlb")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t7pux")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(50, 0)
+texture = ExtResource("2_jv05p")
+hframes = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ijdlf")
+
+[node name="Swordswing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_myxyq")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

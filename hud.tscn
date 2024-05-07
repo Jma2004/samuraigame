@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://d08k7ipy0sjun"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_ty6ev"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_wvita"]
+action = &"Start"
+
+[sub_resource type="Shortcut" id="Shortcut_4nmeb"]
+events = [SubResource("InputEventAction_wvita")]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_ty6ev")
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -232.5
+offset_right = 232.5
+offset_bottom = 220.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "DEFEAT THE BANDITS! USE ARROW KEYS TO MOVE WASD to attack SPACE to jump PRESS ANY KEY TO START"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Health" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "HEALTH:"
+
+[node name="Score" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -99.0
+offset_bottom = 37.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Score:"
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.424
+anchor_top = 0.787
+anchor_right = 0.424
+anchor_bottom = 0.787
+offset_left = -103.448
+offset_top = -45.976
+offset_right = 72.552
+offset_bottom = 49.024
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 25
+shortcut = SubResource("Shortcut_4nmeb")
+text = "START"
+metadata/_edit_use_anchors_ = true
+
+[node name="Controls" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.616
+anchor_top = 0.799
+anchor_right = 0.616
+anchor_bottom = 0.799
+offset_left = -87.6321
+offset_top = -53.752
+offset_right = 88.3679
+offset_bottom = 41.248
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 26
+text = "CONTROLS"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Controls" to="." method="_on_controls_pressed"]

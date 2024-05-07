@@ -1,0 +1,385 @@
+[gd_scene load_steps=19 format=3 uid="uid://duggurmsm510m"]
+
+[ext_resource type="Script" path="res://Boss1.gd" id="1_gjsfv"]
+[ext_resource type="Texture2D" uid="uid://vibmocuxhh7m" path="res://spritesheets/boss_sheet.png" id="2_2meco"]
+[ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://sword.tscn" id="3_0v00m"]
+[ext_resource type="PackedScene" uid="uid://dhq7retdsdkb7" path="res://attacktimer.tscn" id="4_l8f1r"]
+[ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://shine_effect.tscn" id="5_uiujk"]
+[ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://effects.tscn" id="6_xaiwr"]
+
+[sub_resource type="Animation" id="Animation_64ikc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodysprite/armsprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1fkwy"]
+resource_name = "enemydeath"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [8, 9, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodysprite/armsprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sword:disable_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_46o5o"]
+resource_name = "enemywalk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodysprite/armsprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_r0x0w"]
+resource_name = "parry"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bodysprite/armsprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_asfn7"]
+_data = {
+"RESET": SubResource("Animation_64ikc"),
+"enemydeath": SubResource("Animation_1fkwy"),
+"enemywalk": SubResource("Animation_46o5o"),
+"parry": SubResource("Animation_r0x0w")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj6dg"]
+size = Vector2(111.5, 247)
+
+[sub_resource type="Animation" id="Animation_0jln4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite/armsprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sword:disable_attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sword:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword:collision_mask")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bogir"]
+resource_name = "enemydownslash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite/armsprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(4, 0), Vector2i(6, 0), Vector2i(5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sword:disable_attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sword:collision_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [32]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword:collision_layer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [9]
+}
+
+[sub_resource type="Animation" id="Animation_blnyu"]
+resource_name = "enemyupslash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bodysprite/armsprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 7, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sword:disable_attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sword:collision_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [64]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword:collision_layer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rk0b3"]
+_data = {
+"RESET": SubResource("Animation_0jln4"),
+"enemydownslash": SubResource("Animation_bogir"),
+"enemyupslash": SubResource("Animation_blnyu")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0d7rm"]
+size = Vector2(75, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2dij"]
+size = Vector2(75, 56)
+
+[node name="Boss1" type="Area2D" groups=["enemy"]]
+position = Vector2(736, 435)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_gjsfv")
+health = 5
+speed = 300
+
+[node name="bodysprite" type="Sprite2D" parent="."]
+position = Vector2(-4, 3)
+texture = ExtResource("2_2meco")
+hframes = 13
+
+[node name="armsprite" type="Sprite2D" parent="bodysprite"]
+position = Vector2(-21, 5)
+texture = ExtResource("2_2meco")
+hframes = 13
+frame = 3
+
+[node name="AnimationPlayerBody" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_asfn7")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-24.75, 7.5)
+shape = SubResource("RectangleShape2D_cj6dg")
+
+[node name="sword" parent="." instance=ExtResource("3_0v00m")]
+position = Vector2(94, 0)
+
+[node name="AnimationPlayerArm" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rk0b3")
+}
+
+[node name="Timer" parent="." instance=ExtResource("4_l8f1r")]
+
+[node name="Parrytimer" parent="." instance=ExtResource("4_l8f1r")]
+wait_time = 3.0
+one_shot = true
+autostart = false
+
+[node name="ShineEffect" parent="." instance=ExtResource("5_uiujk")]
+
+[node name="Leftdetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leftdetect"]
+position = Vector2(-29, 10)
+shape = SubResource("RectangleShape2D_0d7rm")
+
+[node name="Rightdetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rightdetect"]
+position = Vector2(-27.5, 7)
+shape = SubResource("RectangleShape2D_r2dij")
+
+[node name="effects" parent="." instance=ExtResource("6_xaiwr")]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="downattack" from="." to="." method="_on_downattack"]
+[connection signal="sideattack" from="." to="." method="_on_sideattack"]
+[connection signal="upattack" from="." to="." method="_on_upattack"]
+[connection signal="parry" from="sword" to="." method="_on_sword_parry"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="countdown" from="Parrytimer" to="." method="_on_parrytimer_countdown"]
+[connection signal="timeout" from="Parrytimer" to="." method="_on_parrytimer_timeout"]
+[connection signal="area_entered" from="Leftdetect" to="." method="_on_leftdetect_area_entered"]
+[connection signal="area_entered" from="Rightdetect" to="." method="_on_rightdetect_area_entered"]
