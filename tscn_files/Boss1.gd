@@ -84,3 +84,5 @@ func _on_rightdetect_area_entered(area):
 	velocity = -1
 	scale.x = -1
 	pass # Replace with function body.
+
+

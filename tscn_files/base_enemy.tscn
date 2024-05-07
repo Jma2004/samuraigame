@@ -1,10 +1,10 @@
 [gd_scene load_steps=18 format=3 uid="uid://dqx123mjc3e7n"]
 
-[ext_resource type="Script" path="res://base_enemy.gd" id="1_m5txf"]
+[ext_resource type="Script" path="res://tscn_files/base_enemy.gd" id="1_fcypi"]
 [ext_resource type="Texture2D" uid="uid://xss86sk2cfw0" path="res://spritesheets/base_enemy_sheet.png" id="2_8aair"]
-[ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://sword.tscn" id="2_en4nn"]
-[ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://effects.tscn" id="5_ib7b0"]
-[ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://shine_effect.tscn" id="5_q5jgy"]
+[ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://tscn_files/sword.tscn" id="2_en4nn"]
+[ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://tscn_files/effects.tscn" id="5_ib7b0"]
+[ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://tscn_files/shine_effect.tscn" id="5_q5jgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u5cka"]
 size = Vector2(79, 249)
@@ -405,8 +405,7 @@ size = Vector2(185, 190)
 [node name="BaseEnemy" type="Area2D" groups=["enemy"]]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_m5txf")
-attackstring = "sideslash"
+script = ExtResource("1_fcypi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_8aair")
@@ -448,9 +447,6 @@ shape = SubResource("RectangleShape2D_vw3q6")
 [node name="shine_effect" parent="." instance=ExtResource("5_q5jgy")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="downattack" from="." to="." method="_on_downattack"]
-[connection signal="sideattack" from="." to="." method="_on_sideattack"]
-[connection signal="upattack" from="." to="." method="_on_upattack"]
 [connection signal="parry" from="sword" to="." method="_on_sword_parry"]
 [connection signal="area_entered" from="playerdetection" to="." method="_on_playerdetection_area_entered"]
 [connection signal="area_exited" from="playerdetection" to="." method="_on_playerdetection_area_exited"]

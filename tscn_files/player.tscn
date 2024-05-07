@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://cwyyg27diiayw"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_lw7ba"]
+[ext_resource type="Script" path="res://tscn_files/player.gd" id="1_4vp82"]
 [ext_resource type="Texture2D" uid="uid://d1rxmti7jnl7f" path="res://spritesheets/character.png" id="2_82y6u"]
-[ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://sword.tscn" id="3_qghoh"]
-[ext_resource type="PackedScene" uid="uid://dhq7retdsdkb7" path="res://attacktimer.tscn" id="4_88333"]
-[ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://effects.tscn" id="4_urvlu"]
-[ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://shine_effect.tscn" id="6_of4pn"]
+[ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://tscn_files/sword.tscn" id="3_qghoh"]
+[ext_resource type="PackedScene" uid="uid://dhq7retdsdkb7" path="res://tscn_files/attacktimer.tscn" id="4_88333"]
+[ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://tscn_files/effects.tscn" id="4_urvlu"]
+[ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://tscn_files/shine_effect.tscn" id="6_of4pn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elx2r"]
 size = Vector2(81, 242)
@@ -458,7 +458,7 @@ _data = {
 
 [node name="Player" type="Area2D" groups=["player"]]
 position = Vector2(543.302, 367)
-script = ExtResource("1_lw7ba")
+script = ExtResource("1_4vp82")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-12.802, 7)
@@ -493,7 +493,6 @@ autostart = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="parry" from="attack" to="." method="_on_attack_parry"]
-[connection signal="countdown" from="Timer" to="." method="_on_timer_countdown"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
 [editable path="attack"]

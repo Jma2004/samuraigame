@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://m5rb2vwhtbfb"]
 
-[ext_resource type="Script" path="res://sword.gd" id="1_qvuha"]
+[ext_resource type="Script" path="res://tscn_files/sword.gd" id="1_1p8ks"]
 [ext_resource type="Texture2D" uid="uid://6xcbj26yqn2y" path="res://spritesheets/parryeffect.png" id="2_jv05p"]
 [ext_resource type="AudioStream" uid="uid://c3qh7asbp5byf" path="res://soundeffects/parry.mp3" id="3_ijdlf"]
 [ext_resource type="AudioStream" uid="uid://5ww3j1135q0y" path="res://soundeffects/swordswing.mp3" id="4_myxyq"]
@@ -84,7 +84,7 @@ _data = {
 
 [node name="sword" type="Area2D"]
 collision_mask = 0
-script = ExtResource("1_qvuha")
+script = ExtResource("1_1p8ks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_svvlb")
