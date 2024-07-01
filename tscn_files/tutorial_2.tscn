@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://hv7vplvldhy"]
+
+[ext_resource type="PackedScene" uid="uid://b0rlbtumr1r0g" path="res://tscn_files/tutorial_1.tscn" id="1_x0w8h"]
+
+[node name="Node2D" instance=ExtResource("1_x0w8h")]
+
+[node name="old_man" parent="." index="0"]
+shield = 1
+
+[node name="Label" parent="." index="2"]
+text = "Hitting people with shields will stun you
+Parry them to disable their shield"
+vertical_alignment = 1
+
+[node name="next_button" parent="." index="3"]
+next_scene = "res://tscn_files/option_screen.tscn"
+
+[connection signal="stun_player" from="old_man" to="Player" method="_on_stunplayer"]
+
+[editable path="old_man"]

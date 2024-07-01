@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmkkoambdreu3"]
+
+[ext_resource type="Script" path="res://tscn_files/test.gd" id="1_0c8ta"]
+[ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="1_v4273"]
+[ext_resource type="PackedScene" uid="uid://t6chdheijdwj" path="res://tscn_files/tree_ninja.tscn" id="3_0h1s4"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_274pd"]
+a = Vector2(-26, 3)
+b = Vector2(-26, 654)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_0bvh5"]
+a = Vector2(-94, -8)
+b = Vector2(1032, -11)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0c8ta")
+
+[node name="Player" parent="." instance=ExtResource("1_v4273")]
+position = Vector2(235, 468)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="left" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left"]
+position = Vector2(14, -3)
+shape = SubResource("SegmentShape2D_274pd")
+
+[node name="right" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right"]
+position = Vector2(1188, 4)
+shape = SubResource("SegmentShape2D_274pd")
+
+[node name="top" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top"]
+position = Vector2(101, -15)
+shape = SubResource("SegmentShape2D_0bvh5")
+
+[node name="bottom" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom"]
+position = Vector2(101, 674)
+shape = SubResource("SegmentShape2D_0bvh5")
+
+[node name="ninja" parent="." instance=ExtResource("3_0h1s4")]
+position = Vector2(746, 31)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="throw_bomb" from="ninja" to="." method="_on_ninja_throw_bomb"]
+[connection signal="throw_shuriken" from="ninja" to="." method="_on_ninja_throw_shuriken"]

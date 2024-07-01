@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" path="res://tscn_files/sword.gd" id="1_1p8ks"]
 [ext_resource type="Texture2D" uid="uid://6xcbj26yqn2y" path="res://spritesheets/parryeffect.png" id="2_jv05p"]
+[ext_resource type="Shape2D" uid="uid://r1s4amap4lfa" path="res://tscn_files/sword.tres" id="2_ngolm"]
 [ext_resource type="AudioStream" uid="uid://c3qh7asbp5byf" path="res://soundeffects/parry.mp3" id="3_ijdlf"]
 [ext_resource type="AudioStream" uid="uid://5ww3j1135q0y" path="res://soundeffects/swordswing.mp3" id="4_myxyq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_svvlb"]
-size = Vector2(120, 188)
 
 [sub_resource type="Animation" id="Animation_vmveh"]
 length = 0.001
@@ -87,7 +85,7 @@ collision_mask = 0
 script = ExtResource("1_1p8ks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_svvlb")
+shape = ExtResource("2_ngolm")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -96,6 +94,7 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(50, 0)
 texture = ExtResource("2_jv05p")
 hframes = 5

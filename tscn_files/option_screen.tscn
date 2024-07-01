@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=3 uid="uid://choh7k4ewyccg"]
+
+[ext_resource type="Script" path="res://tscn_files/option_screen.gd" id="1_3gax8"]
+[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="1_yo0lo"]
+[ext_resource type="PackedScene" uid="uid://ctbd85bbj8uup" path="res://tscn_files/next_button.tscn" id="3_io4ee"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_3gax8")
+
+[node name="add_health" type="Button" parent="."]
+offset_left = 80.0
+offset_top = 380.0
+offset_right = 310.0
+offset_bottom = 508.0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 24
+text = "Health +1
+5 points"
+
+[node name="health" type="Label" parent="."]
+offset_left = 483.0
+offset_top = 74.0
+offset_right = 604.0
+offset_bottom = 122.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 36
+text = "HEALTH: "
+
+[node name="lives" type="Label" parent="."]
+offset_left = 483.0
+offset_top = 125.0
+offset_right = 604.0
+offset_bottom = 173.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 36
+text = "LIVES: "
+
+[node name="shield" type="Label" parent="."]
+offset_left = 483.0
+offset_top = 176.0
+offset_right = 604.0
+offset_bottom = 224.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 36
+text = "SHIELD: "
+
+[node name="speed" type="Label" parent="."]
+offset_left = 483.0
+offset_top = 230.0
+offset_right = 604.0
+offset_bottom = 278.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 36
+text = "SPEED: "
+
+[node name="points" type="Label" parent="."]
+offset_left = 947.0
+offset_top = -1.0
+offset_right = 1079.0
+offset_bottom = 47.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 36
+text = "Points: "
+
+[node name="add_speed" type="Button" parent="."]
+offset_left = 344.0
+offset_top = 380.0
+offset_right = 574.0
+offset_bottom = 508.0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 24
+text = "Speed +1
+5 points"
+
+[node name="add_shield" type="Button" parent="."]
+offset_left = 608.0
+offset_top = 380.0
+offset_right = 838.0
+offset_bottom = 508.0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 24
+text = "Shield +1
+10 points"
+
+[node name="add_lives" type="Button" parent="."]
+offset_left = 865.0
+offset_top = 380.0
+offset_right = 1095.0
+offset_bottom = 508.0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 24
+text = "Lives +1
+20 points"
+
+[node name="next_button" parent="." instance=ExtResource("3_io4ee")]
+offset_left = 959.0
+offset_top = 535.0
+offset_right = 1122.0
+offset_bottom = 625.0
+text = "Next"
+
+[connection signal="pressed" from="add_health" to="." method="_on_add_health_pressed"]
+[connection signal="pressed" from="add_speed" to="." method="_on_add_speed_pressed"]
+[connection signal="pressed" from="add_shield" to="." method="_on_add_shield_pressed"]
+[connection signal="pressed" from="add_lives" to="." method="_on_add_lives_pressed"]

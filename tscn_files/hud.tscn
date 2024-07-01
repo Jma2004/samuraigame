@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d08k7ipy0sjun"]
+[gd_scene load_steps=9 format=3 uid="uid://d08k7ipy0sjun"]
 
 [ext_resource type="Script" path="res://tscn_files/hud.gd" id="1_1xfca"]
+[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="2_lg15j"]
+[ext_resource type="Texture2D" uid="uid://6pf06no5p0qn" path="res://spritesheets/play.png" id="3_xbfuq"]
+[ext_resource type="Texture2D" uid="uid://bnvo43pxpi8cs" path="res://spritesheets/pause.png" id="4_e1dug"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_wvita"]
 action = &"Start"
@@ -8,8 +11,28 @@ action = &"Start"
 [sub_resource type="Shortcut" id="Shortcut_4nmeb"]
 events = [SubResource("InputEventAction_wvita")]
 
+[sub_resource type="InputEventKey" id="InputEventKey_w44ao"]
+device = -1
+keycode = 80
+unicode = 112
+
+[sub_resource type="Shortcut" id="Shortcut_tqmwl"]
+events = [SubResource("InputEventKey_w44ao")]
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1xfca")
+
+[node name="Lives" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = 0.06
+anchor_bottom = 0.06
+offset_left = 2.0
+offset_top = 8.12
+offset_right = 73.0
+offset_bottom = 45.12
+theme_override_fonts/font = ExtResource("2_lg15j")
+theme_override_font_sizes/font_size = 24
+text = "LIVES:"
 
 [node name="Message" type="Label" parent="."]
 anchors_preset = 5
@@ -19,8 +42,11 @@ offset_left = -232.5
 offset_right = 232.5
 offset_bottom = 220.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_lg15j")
+theme_override_font_sizes/font_size = 36
 text = "DEFEAT THE BANDITS! USE ARROW KEYS TO MOVE WASD to attack SPACE to jump PRESS ANY KEY TO START"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -29,7 +55,7 @@ autowrap_mode = 2
 [node name="Health" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 34.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_lg15j")
 theme_override_font_sizes/font_size = 24
 text = "HEALTH:"
 
@@ -40,7 +66,7 @@ anchor_right = 1.0
 offset_left = -99.0
 offset_bottom = 37.0
 grow_horizontal = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_lg15j")
 theme_override_font_sizes/font_size = 24
 text = "Score:"
 
@@ -58,6 +84,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_lg15j")
 theme_override_font_sizes/font_size = 25
 shortcut = SubResource("Shortcut_4nmeb")
 text = "START"
@@ -74,8 +101,20 @@ offset_top = -53.752
 offset_right = 88.3679
 offset_bottom = 41.248
 theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_lg15j")
 theme_override_font_sizes/font_size = 26
 text = "CONTROLS"
 
+[node name="pause_button" type="TextureButton" parent="."]
+offset_left = 568.0
+offset_top = 13.0
+offset_right = 668.0
+offset_bottom = 113.0
+toggle_mode = true
+shortcut = SubResource("Shortcut_tqmwl")
+texture_normal = ExtResource("4_e1dug")
+texture_pressed = ExtResource("3_xbfuq")
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Controls" to="." method="_on_controls_pressed"]
+[connection signal="toggled" from="pause_button" to="." method="_on_pause_button_toggled"]

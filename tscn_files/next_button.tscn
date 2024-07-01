@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctbd85bbj8uup"]
+
+[ext_resource type="Script" path="res://next_button.gd" id="1_rvd25"]
+[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="1_tcx8a"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_4omog"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_qtsit"]
+events = [SubResource("InputEventKey_4omog")]
+
+[node name="next_button" type="Button"]
+offset_right = 163.0
+offset_bottom = 90.0
+theme_override_fonts/font = ExtResource("1_tcx8a")
+theme_override_font_sizes/font_size = 36
+shortcut = SubResource("Shortcut_qtsit")
+script = ExtResource("1_rvd25")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

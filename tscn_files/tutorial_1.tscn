@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0rlbtumr1r0g"]
+
+[ext_resource type="PackedScene" uid="uid://dt1ho1tvon4ip" path="res://tscn_files/old_man.tscn" id="1_53j2a"]
+[ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="2_7e1rq"]
+[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="3_30qhn"]
+[ext_resource type="PackedScene" uid="uid://ctbd85bbj8uup" path="res://tscn_files/next_button.tscn" id="4_ajo7o"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="old_man" parent="." instance=ExtResource("1_53j2a")]
+position = Vector2(834, 500)
+scale = Vector2(-1, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_7e1rq")]
+position = Vector2(212, 500)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1154.0
+offset_bottom = 309.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_30qhn")
+theme_override_font_sizes/font_size = 39
+text = "How To Play
+ W - up slash
+S - down slash
+A and D - side slash
+Press Space to dash
+Swing  in the opposite direction to parry an attack
+"
+horizontal_alignment = 1
+
+[node name="next_button" parent="." instance=ExtResource("4_ajo7o")]
+offset_left = 953.0
+offset_top = 537.0
+offset_right = 1116.0
+offset_bottom = 627.0
+text = "Next"
+next_scene = "res://tscn_files/level_1.tscn"

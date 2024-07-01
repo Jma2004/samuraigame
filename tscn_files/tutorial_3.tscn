@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://rjkql1of0740"]
+
+[ext_resource type="PackedScene" uid="uid://b0rlbtumr1r0g" path="res://tscn_files/tutorial_1.tscn" id="1_thfsx"]
+[ext_resource type="Script" path="res://tscn_files/tutorial_3.gd" id="2_m8bxj"]
+
+[node name="Node2D" instance=ExtResource("1_thfsx")]
+script = ExtResource("2_m8bxj")
+
+[node name="old_man" parent="." index="0"]
+shuriken_state = true
+
+[node name="Label" parent="." index="2"]
+text = "Watch out for the ninjas in the trees
+They will shoot shurikens and bombs at you"
+vertical_alignment = 1
+
+[node name="next_button" parent="." index="3"]
+next_scene = "res://tscn_files/option_screen.tscn"
+
+[connection signal="throw_shuriken" from="old_man" to="." method="_on_old_man_throw_shuriken"]

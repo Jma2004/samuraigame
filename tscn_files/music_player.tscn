@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://doh5xooeobi4y"]
+
+[ext_resource type="Script" path="res://tscn_files/music_player.gd" id="1_altoe"]
+[ext_resource type="Texture2D" uid="uid://cuqohtr42upej" path="res://spritesheets/sound_on.png" id="2_ta4b4"]
+[ext_resource type="Texture2D" uid="uid://bljyf0aeecxcx" path="res://spritesheets/sound_off.png" id="3_dbct6"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_m8q16"]
+device = -1
+keycode = 77
+unicode = 109
+
+[sub_resource type="Shortcut" id="Shortcut_05fct"]
+events = [SubResource("InputEventKey_m8q16")]
+
+[node name="Music" type="AudioStreamPlayer"]
+volume_db = -3.059
+script = ExtResource("1_altoe")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="music_button" type="TextureButton" parent="CanvasLayer"]
+modulate = Color(100, 100, 100, 1)
+top_level = true
+z_index = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+offset_right = 44.0
+grow_vertical = 0
+toggle_mode = true
+shortcut = SubResource("Shortcut_05fct")
+texture_normal = ExtResource("2_ta4b4")
+texture_pressed = ExtResource("3_dbct6")
+
+[connection signal="toggled" from="CanvasLayer/music_button" to="." method="_on_music_button_toggled"]

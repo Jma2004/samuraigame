@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcycrhjhet12u"]
+
+[ext_resource type="PackedScene" uid="uid://crcf5jko05l08" path="res://tscn_files/enemy_3.tscn" id="1_7r2bd"]
+[ext_resource type="Texture2D" uid="uid://r7xccuh7toq2" path="res://spritesheets/stage2enemy3.png" id="2_rgbai"]
+
+[node name="red_enemy" instance=ExtResource("1_7r2bd")]
+
+[node name="Sprite2D" parent="." index="2"]
+texture = ExtResource("2_rgbai")
+
+[node name="CollisionShape2D" parent="playerdetection" index="0"]
+visible = false
+position = Vector2(101, -2)
+
+[node name="shield" parent="." index="6"]
+shield_health = 1
+
+[connection signal="area_entered" from="shield" to="." method="_on_shield_area_entered"]
+[connection signal="shield_broken" from="shield" to="." method="_on_shield_shield_broken"]

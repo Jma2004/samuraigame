@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://pgcdt45tmuef"]
+
+[ext_resource type="PackedScene" uid="uid://ckwc0iehb8j8f" path="res://tscn_files/level_2.tscn" id="1_vmx2f"]
+[ext_resource type="Script" path="res://tscn_files/level_4.gd" id="2_cybju"]
+[ext_resource type="TileSet" uid="uid://ck318a36xt8cb" path="res://tscn_files/level_3.tres" id="2_kqqkl"]
+[ext_resource type="PackedScene" uid="uid://b5bvdgjk3c3ut" path="res://tscn_files/ninja_boss.tscn" id="4_hmfw3"]
+[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="4_scbw8"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bo7nh"]
+a = Vector2(-26, 3)
+b = Vector2(-26, 654)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_o52vh"]
+a = Vector2(-26, 3)
+b = Vector2(-26, 654)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_l2gyl"]
+a = Vector2(-94, -8)
+b = Vector2(1032, -11)
+
+[node name="Node2D" instance=ExtResource("1_vmx2f")]
+script = ExtResource("2_cybju")
+mob2_scene = null
+mob_scene = null
+boss_scene = null
+y_position = 471
+next_level = 2
+player_start_position = Vector2(153, 471)
+
+[node name="TileMap" parent="." index="0"]
+tile_set = ExtResource("2_kqqkl")
+layer_1/tile_data = PackedInt32Array(393216, 458752, 0, 393217, 458752, 0, 393218, 458752, 0, 393219, 458752, 0, 393220, 458752, 0, 393221, 458752, 0, 393222, 458752, 0, 393223, 458752, 0, 393224, 458752, 0, 393225, 458752, 0, 393226, 458752, 0, 393227, 458752, 0, 327687, 65536, 0, 262152, 65536, 0, 196617, 65536, 0, 131082, 262144, 0, 196618, 131072, 0, 131083, 327680, 0, 196619, 131072, 0, 262155, 131072, 0, 262154, 131072, 0, 262153, 131072, 0, 327688, 131072, 0, 327689, 131072, 0, 327690, 131072, 0, 327691, 131072, 0, 131076, 851968, 0)
+layer_2/tile_data = PackedInt32Array(131079, 393216, 0, 131074, 393216, 0)
+layer_3/tile_data = PackedInt32Array()
+layer_4/tile_data = PackedInt32Array()
+
+[node name="Boss_health" type="Label" parent="." index="1"]
+offset_left = 955.0
+offset_top = 37.0
+offset_right = 1157.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_scbw8")
+theme_override_font_sizes/font_size = 24
+text = "Boss Health: 9"
+
+[node name="Player" parent="." index="2"]
+position = Vector2(153, 471)
+
+[node name="HUD" parent="." index="4"]
+start_text = ""
+win_text = "YOU WIN! THANKS FOR PLAYING"
+
+[node name="ninja" parent="." index="7" instance=ExtResource("4_hmfw3")]
+position = Vector2(970, 451)
+
+[node name="left" type="Area2D" parent="." index="8"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left" index="0"]
+position = Vector2(14, -3)
+shape = SubResource("SegmentShape2D_bo7nh")
+
+[node name="right" type="Area2D" parent="." index="9"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right" index="0"]
+position = Vector2(1188, 4)
+shape = SubResource("SegmentShape2D_o52vh")
+
+[node name="top" type="Area2D" parent="." index="10"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top" index="0"]
+position = Vector2(101, -15)
+shape = SubResource("SegmentShape2D_l2gyl")
+
+[node name="bottom" type="Area2D" parent="." index="11"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom" index="0"]
+position = Vector2(109, 611)
+shape = SubResource("SegmentShape2D_l2gyl")
+
+[node name="next_button" parent="." index="12"]
+next_scene = "res://tscn_files/tutorial_1.tscn"
+
+[connection signal="area_entered" from="ninja" to="." method="_on_ninja_area_entered"]
+[connection signal="enemydeath" from="ninja" to="." method="_on_ninja_enemydeath"]
+[connection signal="throw_bomb" from="ninja" to="." method="_on_ninja_throw_bomb"]
+[connection signal="throw_shuriken" from="ninja" to="." method="_on_ninja_throw_shuriken"]
+[connection signal="area_entered" from="left" to="ninja" method="_on_left_area_entered"]
+[connection signal="area_entered" from="right" to="ninja" method="_on_right_area_entered"]
+[connection signal="area_entered" from="top" to="ninja" method="_on_top_area_entered"]
+[connection signal="area_entered" from="bottom" to="ninja" method="_on_bottom_area_entered"]

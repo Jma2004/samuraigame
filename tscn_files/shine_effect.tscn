@@ -31,6 +31,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_mshoj"]
 resource_name = "downshine"
+length = 0.2
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -59,6 +60,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_7rlk7"]
 resource_name = "middleshine"
+length = 0.2
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,6 +89,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_ln0uu"]
 resource_name = "upshine"
+length = 0.2
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -122,7 +125,7 @@ _data = {
 }
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(-75, 0)
+position = Vector2(-75, 90)
 texture = ExtResource("1_fjbb0")
 hframes = 4
 

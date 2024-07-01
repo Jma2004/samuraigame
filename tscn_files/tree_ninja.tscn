@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://t6chdheijdwj"]
+
+[ext_resource type="PackedScene" uid="uid://rke275gmj8sh" path="res://tscn_files/ninja.tscn" id="1_2ikwc"]
+[ext_resource type="Script" path="res://tree_ninja.gd" id="2_n4k8w"]
+[ext_resource type="Shape2D" uid="uid://ct7qqbc2ukswu" path="res://tscn_files/playerdetection.tres" id="3_osv0j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1isop"]
+size = Vector2(307, 515)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5avr"]
+size = Vector2(158.188, 395.5)
+
+[node name="ninja" instance=ExtResource("1_2ikwc")]
+script = ExtResource("2_n4k8w")
+
+[node name="playerdetection" parent="." index="3"]
+monitoring = true
+
+[node name="CollisionShape2D" parent="playerdetection" index="0"]
+position = Vector2(-257, 439)
+shape = SubResource("RectangleShape2D_1isop")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="playerdetection" index="1"]
+position = Vector2(100, -1)
+shape = ExtResource("3_osv0j")
+
+[node name="bomb_zone" type="Area2D" parent="." index="8"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bomb_zone" index="0"]
+position = Vector2(1, 443.75)
+shape = SubResource("RectangleShape2D_s5avr")
+
+[node name="shuriken_zone" type="Area2D" parent="." index="9"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shuriken_zone" index="0"]
+position = Vector2(285, 442)
+shape = SubResource("RectangleShape2D_s5avr")
+
+[node name="Timer" type="Timer" parent="." index="10"]
+one_shot = true
+
+[connection signal="area_entered" from="bomb_zone" to="." method="_on_bomb_zone_area_entered"]
+[connection signal="area_entered" from="shuriken_zone" to="." method="_on_shuriken_zone_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

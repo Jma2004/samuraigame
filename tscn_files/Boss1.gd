@@ -39,8 +39,8 @@ func death(health_counter):
 		$AnimationPlayerBody.play("enemydeath")
 		$AnimationPlayerArm.stop()
 		set_process(false)
-		boss_death.emit()
 		$Timer.stop()
+		boss_death.emit()
 		await $AnimationPlayerBody.animation_finished
 		queue_free()
 

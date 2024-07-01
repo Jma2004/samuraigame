@@ -1,141 +1,74 @@
 extends Node2D
-@export var mob_scene: PackedScene
-@export var boss_scene: PackedScene
-var bounds
-var kills = 0
-var y_position = 471
-var num_enemies = 0
-var speedscale = 1
-signal game_start
-signal boss_spawn
+var current_scene = null
+var current_path
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_screen()
-	bounds = [get_viewport_rect().end.x, 0]
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	Global.player_died.connect(_on_player_death)
+	current_scene = get_child(0)
 	pass # Replace with function body.
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func _on_mobtimer_timeout():
-	if num_enemies%5 == 0 and num_enemies > 0:
-		speedscale += 0.1
-		if $mobtimer.wait_time > 1:
-			$mobtimer.wait_time -= 0.5
-		if kills > 20 and $bosstimer.wait_time > 1:
-			$bosstimer.wait_time -= 2
-		spawn_boss(Vector2(bounds[0], y_position))
-		if kills > 5:
-			spawn_boss(Vector2(bounds[1], y_position))
-			num_enemies += 1
+
+func goto_scene(path):
+	# This function will usually be called from a signal callback,
+	# or some other function in the current scene.
+	# Deleting the current scene at this point is
+	# a bad idea, because it may still be executing code.
+	# This will result in a crash or unexpected behavior.
+
+	# The solution is to defer the load to a later time, when
+	# we can be sure that no code from the current scene is running:
+	current_path = path
+	call_deferred("_deferred_goto_scene", path)
+
+
+func _deferred_goto_scene(path):
+	# It is now safe to remove the current scene.
+	current_scene.free()
+
+	# Load the new scene.
+	var s = ResourceLoader.load(path)
+
+	# Instance the new scene.
+	current_scene = s.instantiate()
+
+	# Add it to the active scene, as child of root.
+	get_tree().root.add_child(current_scene)
+
+	var next_button = current_scene.get_child(current_scene.get_child_count() - 1)
+	next_button.next_pressed.connect(_on_next_button_next_pressed)
+
+
+func _on_next_button_next_pressed(next_scene):
+	MusicPlayer.stop()
+	goto_scene(next_scene)
+	if get_tree().paused:
+		get_tree().paused = false
+	pass # Replace with function body.
+
+func _on_player_death():
+	MusicPlayer.stop()
+	Global.player_lives -= 1
+	if Global.player_lives == 0:
+		MusicPlayer.stream = MusicPlayer.music[0]
+		reset()
 	else:
-		mob_spawn(Vector2(bounds[randi_range(0, 1)], y_position), speedscale)
-	num_enemies += 1
-	pass # Replace with function body.
-func mob_spawn(position, speedscale):
-	var attackstring = ["upslash", "downslash", "sideslash"]
-	var mob = mob_scene.instantiate()
-	mob.position = position
-	mob.speedscale = speedscale
-	mob.attackstring = attackstring[randi_range(0, 2)]
-	if (mob.position.x == bounds[0]):
-		mob.scale.x = -1
-	add_child(mob)
-	mob.enemydeath.connect(_on_enemydeath)
-
-func spawn_boss(position):
-	if num_enemies >= 15:
-		$bosstimer.start()
-	$mobtimer.stop()
-	var boss = boss_scene.instantiate()
-	boss.position = position
-	if position.x == bounds[0]:
-		boss.velocity = -1
-	add_child(boss)
-	boss.boss_death.connect(_on_bossdeath)
-	
-func _on_bossdeath():
-	kills += 1
-	$HUD/Score.text = "Score: " + str(kills)
-	if !$bosstimer.is_stopped():
-		$bosstimer.stop()
-	if $mobtimer.is_stopped():
-		$mobtimer.start()
+		goto_scene("res://tscn_files/option_screen.tscn")
+	Global.player_health = 3
 	pass
-func _on_enemydeath():
-	kills += 1 
-	$HUD/Score.text = "Score: " + str(kills)
 	
-
-func _on_game_start():
-	get_tree().paused = false
-	$Player.set_process(true)
-	$Player.set_process_input(true)
-	$HUD.game_playing()
-	$mobtimer.start()
-	$Music.play()
-	disconnect("game_start", _on_game_start)
-	pass # Replace with function body.
-
-
-func _on_boss_spawn():
-	$mobtimer.stop()
-	spawn_boss(Vector2(bounds[1], y_position))
-	if kills >= 10:
-		spawn_boss(Vector2(bounds[0], y_position))
-	pass # Replace with function body.
-
-
-func _on_player_area_entered(area):
-	$HUD/Health.text = "HEALTH: " + str($Player.health - 1)
-	pass # Replace with function body.
-
-
-func _on_player_is_dead():
-	$HUD/Message.text = "Game Over\n You defeated " + str(kills) + " enemies\n"
-	if kills >= 30:
-		$HUD/Message.text += "You are too good\nYou should probably stop"
-	elif kills >= 20:
-		$HUD/Message.text += "You're Amazing!"
-	elif kills >= 15:
-		$HUD/Message.text += "You're pretty good"
-	elif kills >= 10:
-		$HUD/Message.text += "Not bad."
-	elif kills < 5:
-		$HUD/Message.text += "You Blow."
-	$HUD.game_over()
-	$mobtimer.stop()
-	$game_over.start()
-	$Music.stop()
-	pass # Replace with function body.
-
-	
-func start_screen():
-	$HUD.start_message()
-	$HUD/Health.text = "HEALTH: 3"
-	get_tree().call_group("enemy", "queue_free")
-	$Player/AnimationPlayer.play("RESET")
-	$Player.position = Vector2(get_viewport_rect().get_center().x, y_position)
-	$Player.health = 3
-	$Player.velocity = Vector2.ZERO
-	$mobtimer.stop()
-	if !game_start.is_connected(_on_game_start):
-		game_start.connect(_on_game_start)
-	not_playing()
-
-func _on_game_over_timeout():
+func reset():
+	call_deferred("deferred_reset")
+	pass	
+func deferred_reset():
+	current_scene.free()
 	get_tree().reload_current_scene()
-	pass # Replace with function body.
-
-func not_playing():
-	get_tree().paused = true
-	pass
-func _on_hud_start_game():
-	game_start.emit()
-	pass # Replace with function body.
+	Global.reset_variables()
+	MusicPlayer.play()
 
 
-func _on_bosstimer_timeout():
-	$mobtimer.start()
-	pass # Replace with function body.
