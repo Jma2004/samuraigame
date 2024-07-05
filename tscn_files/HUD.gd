@@ -57,5 +57,4 @@ func _on_button_pressed():
 
 func _on_pause_button_toggled(button_pressed):
 	get_tree().paused = not get_tree().paused
-	MusicPlayer.stream_paused = not MusicPlayer.stream_paused
 	pass # Replace with function body.

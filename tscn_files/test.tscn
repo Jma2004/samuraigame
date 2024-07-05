@@ -19,6 +19,8 @@ script = ExtResource("1_0c8ta")
 position = Vector2(235, 468)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
 
 [node name="left" type="Area2D" parent="."]
 collision_layer = 0
@@ -53,7 +55,7 @@ position = Vector2(101, 674)
 shape = SubResource("SegmentShape2D_0bvh5")
 
 [node name="ninja" parent="." instance=ExtResource("3_0h1s4")]
-position = Vector2(746, 31)
+position = Vector2(746, 150)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="throw_bomb" from="ninja" to="." method="_on_ninja_throw_bomb"]

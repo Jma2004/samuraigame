@@ -46,6 +46,7 @@ func _deferred_goto_scene(path):
 
 func _on_next_button_next_pressed(next_scene):
 	MusicPlayer.stop()
+	Global.screen_bounds = [0, 1142]
 	goto_scene(next_scene)
 	if get_tree().paused:
 		get_tree().paused = false

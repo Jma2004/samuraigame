@@ -12,8 +12,8 @@ signal sideattack
 signal is_dead
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	speed += 25*Global.player_speed
-	dash_speed += 50*Global.player_speed
+	speed += 100*Global.player_speed
+	dash_speed += 100*Global.player_speed
 	screensize = get_viewport_rect().size
 	$shield.shield_health = Global.player_shield
 	$shield.update_shield()
@@ -28,21 +28,22 @@ func _process(delta):
 		else:
 			velocity.x = -speed
 			scale = Vector2(-1, 1)
-		if $shield.shield_health == 0 and !$shield/AnimationPlayer.is_playing():
-			$CollisionShape2D.disabled = false
+		if $shield.shield_health <= 0 and !$shield/AnimationPlayer.is_playing():
+			$CollisionShape2D.set_deferred("disabled", false)
+		elif $shield.shield_health > 0:
+			$shield/CollisionShape2D.set_deferred("disabled", false)
 	elif $AnimationPlayer.current_animation == "jumpahead":
 		if !direction:
 			dash_velocity.x = -dash_speed
 		else:
 			dash_velocity.x = dash_speed
 		if $AnimationPlayer.current_animation_position > 0.1 and $AnimationPlayer.current_animation_position < 0.3:
-			if $shield.shield_health == 0:
-				$CollisionShape2D.disabled = true
+			$CollisionShape2D.disabled = true
+			$shield/CollisionShape2D.disabled = true
 	position += velocity*delta 
 	position += dash_velocity * delta
 	position.x = clamp(position.x, Global.screen_bounds[0], Global.screen_bounds[1])
 	Global.player_position = position
-	death(Global.player_health)
 	
 func _input(event):
 	if Input.is_action_just_pressed("move_left"):
@@ -56,19 +57,39 @@ func _input(event):
 			$AnimationPlayer.play("jumpahead")
 			$AnimationPlayer.queue("walk")
 		if Input.is_action_just_pressed("downattack"):
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			$AnimationPlayer.play("down_slash")
 			$shine_effect/AnimationPlayer.play("upshine")
 			$AnimationPlayer.queue("walk")
 		if Input.is_action_just_pressed("upattack"):
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			$AnimationPlayer.play("up-slash")
 			$shine_effect/AnimationPlayer.play("downshine")
 			$AnimationPlayer.queue("walk")
 		if Input.is_action_just_pressed("rightattack"):
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			scale = Vector2(1, 1)
 			$AnimationPlayer.play("side-slash")
 			$shine_effect/AnimationPlayer.play("middleshine")
 			$AnimationPlayer.queue("walk")
 		if Input.is_action_just_pressed("leftattack"):
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			scale = Vector2(-1, 1)
 			$AnimationPlayer.play("side-slash")
 			$shine_effect/AnimationPlayer.play("middleshine")
@@ -86,19 +107,39 @@ func _input(event):
 
 	if event is InputEventScreenDrag:
 		if event.relative.y > 50:
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			$AnimationPlayer.play("down_slash")
 			$shine_effect/AnimationPlayer.play("upshine")
 			$AnimationPlayer.queue("walk")
 		elif event.relative.y < -50:
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			$AnimationPlayer.play("up-slash")
 			$shine_effect/AnimationPlayer.play("downshine")
 			$AnimationPlayer.queue("walk")
 		elif event.relative.x > 50:
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			scale = Vector2(1, 1)
 			$AnimationPlayer.play("side-slash")
 			$shine_effect/AnimationPlayer.play("middleshine")
 			$AnimationPlayer.queue("walk")
 		elif event.relative.x < -50:
+			if $shield.shield_health <= 0:
+				$CollisionShape2D.disabled = false
+				modulate = Color(1, 1, 1, 1)
+			else:
+				$shield/CollisionShape2D.disabled = false
 			scale = Vector2(-1, 1)
 			$AnimationPlayer.play("side-slash")
 			$shine_effect/AnimationPlayer.play("middleshine")
@@ -107,17 +148,18 @@ func _input(event):
 func _on_area_entered(area):
 	Global.player_health -= 1
 	$effects.play("flicker")
+	if Global.player_health == 0:
+		death()
 #	if speed > 200:
 #		speed -= 50
 #		$AnimationPlayer.speed_scale -= 0.5
 #		dash_speed -= 50
 		
-func death(health_number : int):
-	if health_number == 0:
-		$AnimationPlayer.play("death")
-		set_process(false)
-		set_process_input(false)
-		is_dead.emit()
+func death():
+	$AnimationPlayer.play("death")
+	set_process(false)
+	set_process_input(false)
+	is_dead.emit()
 			
 
 

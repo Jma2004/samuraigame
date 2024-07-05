@@ -7,20 +7,23 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_playerdetection_area_entered(area):
-	scale.x = -scale.x
+	if area == get_node("/root/Node2D/Player") or area == get_node("/root/Node2D/Player/shield"):
+		scale.x = -scale.x
 	pass
 
 
 func _on_bomb_zone_area_entered(area):
 	if area == get_node("/root/Node2D/Player") or area == get_node("/root/Node2D/Player/shield"):
 		drop_bomb()
-	$Timer.start()
+		$bomb_zone/CollisionShape2D.set_deferred("disabled", true)
+		$Timer.start()
 	pass # Replace with function body.
 
 
 func _on_shuriken_zone_area_entered(area):
 	if area == get_node("/root/Node2D/Player") or area == get_node("/root/Node2D/Player/shield"):
 		shuriken_throw()
+		$shuriken_zone/CollisionShape2D.set_deferred("disabled", true)
 	pass # Replace with function body.
 
 

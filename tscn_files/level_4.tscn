@@ -42,7 +42,7 @@ offset_bottom = 85.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_scbw8")
 theme_override_font_sizes/font_size = 24
-text = "Boss Health: 9"
+text = "Boss Health: 15"
 
 [node name="Player" parent="." index="2"]
 position = Vector2(153, 471)
@@ -59,7 +59,7 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="left" index="0"]
-position = Vector2(14, -3)
+position = Vector2(25, -2)
 shape = SubResource("SegmentShape2D_bo7nh")
 
 [node name="right" type="Area2D" parent="." index="9"]
@@ -67,7 +67,7 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="right" index="0"]
-position = Vector2(1188, 4)
+position = Vector2(1181, -2)
 shape = SubResource("SegmentShape2D_o52vh")
 
 [node name="top" type="Area2D" parent="." index="10"]
@@ -75,10 +75,11 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="top" index="0"]
-position = Vector2(101, -15)
+position = Vector2(108, 18)
 shape = SubResource("SegmentShape2D_l2gyl")
 
 [node name="bottom" type="Area2D" parent="." index="11"]
+position = Vector2(5, 30)
 collision_layer = 0
 collision_mask = 256
 

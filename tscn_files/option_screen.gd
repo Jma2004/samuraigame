@@ -1,8 +1,8 @@
 extends Node2D
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$slow_down.hide()
 	$next_button.next_scene = "res://tscn_files/level_" + str(Global.level) + ".tscn"
 	pass # Replace with function body.
 
@@ -25,6 +25,8 @@ func _process(delta):
 		$add_speed.disabled = true
 	if Global.player_lives >= 5 or Global.player_points < 20:
 		$add_lives.disabled = true
+	if Global.player_points < 5:
+		$slow_down.disabled = true
 	pass
 
 
@@ -38,6 +40,10 @@ func _on_add_health_pressed():
 func _on_add_speed_pressed():
 	Global.player_speed += 1
 	Global.player_points -= 5
+	if Global.player_speed == 5:
+		$slow_down.disabled = false
+		$slow_down.show()
+		$add_speed.hide()
 	pass # Replace with function body.
 
 
@@ -50,4 +56,14 @@ func _on_add_shield_pressed():
 func _on_add_lives_pressed():
 	Global.player_lives += 1
 	Global.player_points -= 20
+	pass # Replace with function body.
+
+
+func _on_slow_down_pressed():
+	Global.player_speed -= 1
+	Global.player_points -= 5
+	if Global.player_speed == 0:
+		$add_speed.disabled = false
+		$add_speed.show()
+		$slow_down.hide()
 	pass # Replace with function body.

@@ -246,6 +246,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.85), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_tmw1c"]
 resource_name = "side-slash"
@@ -477,10 +489,17 @@ script = ExtResource("1_4vp82")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-12.802, 7)
 shape = SubResource("RectangleShape2D_elx2r")
+debug_color = Color(0, 0.6, 0.701961, 0.894118)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_eukey")
 hframes = 17
+
+[node name="shield" parent="." instance=ExtResource("7_21d3q")]
+visible = false
+collision_layer = 1
+collision_mask = 2049
+shield_health = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 movie_quit_on_finish = true
@@ -504,11 +523,6 @@ one_shot = true
 autostart = false
 
 [node name="shine_effect" parent="." instance=ExtResource("6_of4pn")]
-
-[node name="shield" parent="." instance=ExtResource("7_21d3q")]
-collision_layer = 1
-collision_mask = 2049
-shield_health = 0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

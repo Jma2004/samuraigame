@@ -16,6 +16,7 @@ func _on_mobtimer_timeout():
 		mob_spawn(Vector2(Global.screen_bounds[randi_range(0,1)], y_position), speedscale, enemy_array.pick_random())
 		if speedscale < 2:
 			speedscale += 0.01
+		if $mobtimer.wait_time > 2:
 			$mobtimer.wait_time -= 0.2
 	num_enemies += 1
 	

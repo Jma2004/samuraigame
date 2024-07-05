@@ -77,6 +77,18 @@ theme_override_font_sizes/font_size = 24
 text = "Speed +1
 5 points"
 
+[node name="slow_down" type="Button" parent="."]
+visible = false
+offset_left = 344.0
+offset_top = 380.0
+offset_right = 574.0
+offset_bottom = 508.0
+theme_override_fonts/font = ExtResource("1_yo0lo")
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Slow Down +1
+5 points"
+
 [node name="add_shield" type="Button" parent="."]
 offset_left = 608.0
 offset_top = 380.0
@@ -106,5 +118,6 @@ text = "Next"
 
 [connection signal="pressed" from="add_health" to="." method="_on_add_health_pressed"]
 [connection signal="pressed" from="add_speed" to="." method="_on_add_speed_pressed"]
+[connection signal="pressed" from="slow_down" to="." method="_on_slow_down_pressed"]
 [connection signal="pressed" from="add_shield" to="." method="_on_add_shield_pressed"]
 [connection signal="pressed" from="add_lives" to="." method="_on_add_lives_pressed"]

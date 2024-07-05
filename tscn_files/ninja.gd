@@ -16,7 +16,7 @@ func _ready():
 	if position.x >= Global.player_position.x:
 		scale.x = -1
 		velocity = -1
-	if position.x <= Global.player_position.x:
+	elif position.x <= Global.player_position.x:
 		scale.x = 1
 		velocity = 1
 	pass
@@ -38,8 +38,6 @@ func _process(delta):
 
 func _on_playerdetection_area_entered(area):
 	speedvar = 700
-	scale.x = (Global.player_position.x - position.x)/abs(Global.player_position.x - position.x)
-	velocity = scale.x
 	jump(initial_velocity)
 	pass
 
@@ -69,7 +67,6 @@ func death(health_counter):
 		$Sprite2D/AnimationPlayer.clear_queue()
 		enemydeath.emit()
 		speedvar = 0
-		$CollisionShape2D.disabled = true
 		$Sprite2D/AnimationPlayer.play("death")
 		await $Sprite2D/AnimationPlayer.animation_finished
 		queue_free()

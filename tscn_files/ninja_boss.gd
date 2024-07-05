@@ -5,9 +5,11 @@ var fly_velocity_y = -500
 var spin_velocity_x = 650
 var spin_velocity_y = -650
 signal landed
+var screen_size
 var phase = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	screen_size = get_viewport_rect().size
 	$Sprite2D/AnimationPlayer.play("walk")
 	if position.x > Global.player_position.x:
 		scale.x = -1
@@ -53,6 +55,7 @@ func _process(delta):
 		position += Vector2(spin_velocity_x, spin_velocity_y)*delta
 		scale.x = (Global.player_position.x - position.x)/abs(Global.player_position.x - position.x)
 		pass
+	position = position.clamp(Vector2.ZERO, screen_size)
 	pass
 
 func jump_attack():
@@ -69,51 +72,56 @@ func jump_attack():
 	pass
 
 func _on_playerdetection_area_entered(area):
-	jump_attack()
+	if phase == 1:
+		jump_attack()
 	pass
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	if phase == 1:
-		scale.x = -scale.x
-		velocity = scale.x
-	elif phase == 2:
-		pass
-	elif phase == 3:
-		pass
 	pass
 	
 func _on_area_entered(area):
 	$effects.play("flicker")
 	health -= 1
 	if health == 0:
+		$item_timer.stop()
 		death(health)
-	elif  health < 4:
+	elif  health < 5:
 		phase = 3
 		await landed
 		spin_velocity_y = -abs(spin_velocity_y)
 		$Sprite2D/AnimationPlayer.play("jump")
 		$Sprite2D/AnimationPlayer.queue("spin")
-	elif health < 7:
+	elif health < 10:
 		phase = 2
 		$playerdetection.monitoring = false
-		if is_jumping:
-			await landed
-		$Sprite2D/AnimationPlayer.play("jump")
-		$Sprite2D/AnimationPlayer.queue("fly")
+		$Sprite2D/AnimationPlayer.play("fly")
 		$item_timer.start()
 	pass
 
-
+func _on_sword_parry():
+	parry_health -= 1
+	if parry_health <= 0:
+		$Sprite2D/AnimationPlayer.clear_queue()
+		$Sprite2D/AnimationPlayer.play("stun")
+		await get_tree().create_timer(1.0).timeout
+		if health > 0 and phase == 1:
+			$Sprite2D/AnimationPlayer.play("walk")
+	pass
+	
 
 
 
 func _on_left_area_entered(area):
+	velocity = -velocity
+	scale.x = -scale.x
 	fly_velocity_x = -fly_velocity_x
 	spin_velocity_x = -spin_velocity_x
 	pass # Replace with function body.
 
 
 func _on_right_area_entered(area):
+	velocity = -velocity
+	scale.x = -scale.x
 	fly_velocity_x = -fly_velocity_x
 	spin_velocity_x = -spin_velocity_x
 	pass # Replace with function body.

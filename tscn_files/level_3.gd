@@ -1,11 +1,12 @@
 extends "res://tscn_files/level_2.gd"
-var camera_speed = 75
-
+var camera_speed = 85 + 5*Global.player_speed
+var ninja_spawn_points
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	Global.screen_bounds = [$Camera2D.get_screen_center_position().x - 576,
 	$Camera2D.get_screen_center_position().x + 576]
+	ninja_spawn_points = [$Camera2D.get_screen_center_position().x - 580, $Camera2D.get_screen_center_position().x + 580]
 	$Camera2D.position.x += camera_speed*delta
 	pass
 
@@ -42,6 +43,7 @@ func _on_enemydeath():
 	
 func _on_area_2d_area_entered(area):
 	level_completed.emit()
+	camera_speed = 0
 	pass # Replace with function body.
 
 
@@ -60,16 +62,21 @@ func _on_game_start():
 
 
 func _on_jumping_ninja_timer_timeout():
-	ninja_spawn(Vector2(Global.screen_bounds[randi_range(0,1)], y_position - 400), 1, mob2_scene)
+	ninja_spawn(Vector2(ninja_spawn_points.pick_random(), y_position - 400), 1, mob2_scene)
 	pass # Replace with function body.
 
 
 func _on_camera_speed_up_area_entered(area):
-	camera_speed = 150
+	camera_speed *= 2
 	pass # Replace with function body.
 
 
 func _on_jumping_ninja_start_area_entered(area):
 	$jumping_ninja_timer.start()
-	$mobtimer.wait_time -= 1
+	pass # Replace with function body.
+
+
+func _on_end_of_forest_area_entered(area):
+	$jumping_ninja_timer.stop()
+	$mobtimer.stop()
 	pass # Replace with function body.
