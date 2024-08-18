@@ -18,11 +18,10 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://tscn_files/global.gd"
-MusicPlayer="*res://tscn_files/music_player.tscn"
 
 [display]
 
-window/size/resizable=false
+window/stretch/mode="viewport"
 
 [input]
 
@@ -98,6 +97,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_10="rightwall"
 2d_physics/layer_11="playerparry"
 2d_physics/layer_12="items"
+2d_physics/layer_14="pit"
 
 [rendering]
 

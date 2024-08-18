@@ -1,5 +1,5 @@
 extends Node
-var player_health := 3
+var player_health := 5
 var player_shield := 0
 var player_points := 0
 var player_lives := 3
@@ -21,7 +21,7 @@ func _process(delta):
 	pass
 
 func reset_variables():
-	player_health = 3
+	player_health = 5
 	player_lives = 3
 	player_shield = 0
 	player_points = 0	

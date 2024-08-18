@@ -9,8 +9,8 @@ shield = 1
 
 [node name="Label" parent="." index="2"]
 text = "Hitting people with shields will stun you
-Parry them to disable their shield"
-vertical_alignment = 1
+Parry them to disable their shield
+Also keep your distance from the whip people"
 
 [node name="next_button" parent="." index="3"]
 next_scene = "res://tscn_files/option_screen.tscn"

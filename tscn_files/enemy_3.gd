@@ -32,22 +32,22 @@ func _process(delta):
 	
 
 
-func death(health_counter):
-	if health_counter == 0:
-		$sword.disconnect("parry", _on_sword_parry)
-		$playerdetection.monitoring = false
-		set_process(false)
-		$Sprite2D/AnimationPlayer.clear_queue()
-		enemydeath.emit()
-		speedvar = 0
-		$Sprite2D/AnimationPlayer.play("death")
-		await $Sprite2D/AnimationPlayer.animation_finished
-		queue_free()
+func death():
+	$sword.disconnect("parry", _on_sword_parry)
+	$playerdetection.monitoring = false
+	set_process(false)
+	$Sprite2D/AnimationPlayer.clear_queue()
+	enemydeath.emit()
+	speedvar = 0
+	$Sprite2D/AnimationPlayer.play("death")
+	await $Sprite2D/AnimationPlayer.animation_finished
+	queue_free()
 	pass
 
 	
 func _on_playerdetection_area_entered(area):
-	jumpattack()
+	if area == get_node("/root/Node2D/Player") or area == get_node("/root/Node2D/Player/shield"):
+		jumpattack()
 	pass
 
 func jumpattack():

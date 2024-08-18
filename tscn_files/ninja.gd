@@ -9,16 +9,8 @@ var bomb = preload("res://tscn_files/bomb.tscn")
 signal throw_shuriken(item, direction, location)
 signal throw_bomb(item, location)
 func _ready():
-	if position.y < Global.ground or position.x == Global.player_position.x:
-		jump(initial_velocity)
-	else:
-		$Sprite2D/AnimationPlayer.play("walk")
-	if position.x >= Global.player_position.x:
-		scale.x = -1
-		velocity = -1
-	elif position.x <= Global.player_position.x:
-		scale.x = 1
-		velocity = 1
+	set_process(false)
+	$Sprite2D.frame = 0
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -48,28 +40,20 @@ func shuriken_throw():
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-#	if position.x < Global.player_position.x:
-#		scale.x = 1
-#		velocity = 1
-#	else:
-#		scale.x = -1
-#		velocity = -1
 	queue_free()
 	pass # Replace with function body.
 
 
-func death(health_counter):
-	if health_counter == 0:
-		$sword.disconnect("parry", _on_sword_parry)
-		$playerdetection.monitoring = false
-		set_process(false)
-		position.y = Global.ground
-		$Sprite2D/AnimationPlayer.clear_queue()
-		enemydeath.emit()
-		speedvar = 0
-		$Sprite2D/AnimationPlayer.play("death")
-		await $Sprite2D/AnimationPlayer.animation_finished
-		queue_free()
+func death():
+	$playerdetection.monitoring = false
+	set_process(false)
+	position.y = Global.ground
+	$Sprite2D/AnimationPlayer.clear_queue()
+	enemydeath.emit()
+	speedvar = 0
+	$Sprite2D/AnimationPlayer.play("death")
+	await $Sprite2D/AnimationPlayer.animation_finished
+	queue_free()
 	pass
 
 func jump(jump_velocity):
@@ -81,4 +65,18 @@ func jump(jump_velocity):
 
 func drop_bomb():
 	throw_bomb.emit(bomb, position)
+	pass
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	set_process(true)
+	if position.y < Global.ground or position.x == Global.player_position.x:
+		jump(initial_velocity)
+	else:
+		$Sprite2D/AnimationPlayer.play("walk")
+	if position.x >= Global.player_position.x:
+		scale.x = -1
+		velocity = -1
+	elif position.x <= Global.player_position.x:
+		scale.x = 1
+		velocity = 1
 	pass

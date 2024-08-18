@@ -1,5 +1,5 @@
 extends "res://tscn_files/base_enemy.gd"
-signal stunplayer
+
 signal test_signal
 @export var parry_health := 1
 # Called when the node enters the scene tree for the first time.
@@ -8,8 +8,8 @@ func _ready():
 	attackstring = attacks[randi_range(0, 1)]
 	speed *= speedscale
 #	$shield.update_shield()
+	set_process(false)
 	$Sprite2D/AnimationPlayer.speed_scale = speedscale
-	$Sprite2D/AnimationPlayer.play("walk")
 	pass # Replace with function body.
 
 func _on_sword_parry():
@@ -18,23 +18,22 @@ func _on_sword_parry():
 		$Sprite2D/AnimationPlayer.clear_queue()
 		$Sprite2D/AnimationPlayer.play("stun")
 		$shield.turn_off()
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(5.0).timeout
 		if health > 0:
 			$Sprite2D/AnimationPlayer.play("walk")
 			$shield.update_shield()
 	pass
 	
-func death(health_counter):
-	if health_counter == 0:
-		$sword.disconnect("parry", _on_sword_parry)
-		set_process(false)
-		$playerdetection.monitoring = false
-		$Sprite2D/AnimationPlayer.clear_queue()
-		enemydeath.emit()
-		speedvar = 0
-		$Sprite2D/AnimationPlayer.play("death")
-		await $Sprite2D/AnimationPlayer.animation_finished
-		queue_free()
+func death():
+	$sword.disconnect("parry", _on_sword_parry)
+	set_process(false)
+	$playerdetection.monitoring = false
+	$Sprite2D/AnimationPlayer.clear_queue()
+	enemydeath.emit()
+	speedvar = 0
+	$Sprite2D/AnimationPlayer.play("death")
+	await $Sprite2D/AnimationPlayer.animation_finished
+	queue_free()
 	pass
 			
 
@@ -82,3 +81,5 @@ func _on_shield_area_entered(area):
 func _on_shield_shield_broken():
 #	monitoring = true
 	pass # Replace with function body.
+
+

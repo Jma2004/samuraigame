@@ -1,10 +1,13 @@
 extends Node2D
 @export var mob_scene: PackedScene
+@export var mob_scene_2: PackedScene
 @export var boss_scene: PackedScene
+var spawn
 var bounds
 var kills = 0
+var end = false
 @export var y_position = 471
-var num_enemies = 0
+@export var num_bosses = 0
 var speedscale = 1
 signal game_start
 signal boss_spawn
@@ -19,7 +22,6 @@ func _ready():
 	bounds = [get_viewport_rect().end.x, 0]
 	$next_button.hide()
 	$next_button.disabled = true
-	MusicPlayer.stream = MusicPlayer.music[Global.level]
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,19 +29,7 @@ func _process(delta):
 	pass
 
 func _on_mobtimer_timeout():
-	if num_enemies%5 == 0 and num_enemies > 0: #every 5 enemies spawned, increase the speed
-		speedscale += 0.1
-		if $mobtimer.wait_time > 1:
-			$mobtimer.wait_time -= 0.2
-		if kills > 20 and $bosstimer.wait_time > 1: #spawn boss every 5 enemies spawned
-			$bosstimer.wait_time -= 0.1
-		spawn_boss(Vector2(bounds[0], y_position))
-		if kills > 5:
-			spawn_boss(Vector2(bounds[1], y_position))
-			num_enemies += 1
-	else:
-		mob_spawn(Vector2(Global.screen_bounds[randi_range(0, 1)], y_position), speedscale, mob_scene)
-	num_enemies += 1
+	mob_spawn(Vector2(Global.screen_bounds[randi_range(0, 1)], y_position), speedscale, spawn)
 	pass # Replace with function body.
 	
 func mob_spawn(position, speedscale, mob_scene):
@@ -53,39 +43,25 @@ func mob_spawn(position, speedscale, mob_scene):
 	pass
 	
 func spawn_boss(position):
-	if num_enemies >= 15:
-		$bosstimer.start()
-	$mobtimer.stop()
 	var boss = boss_scene.instantiate()
 	boss.position = position
 	if position.x == bounds[0]:
 		boss.velocity = -1
-	add_child(boss)
+	add_child.call_deferred(boss)
 	boss.boss_death.connect(_on_bossdeath)
+	num_bosses += 1
 	
 func _on_bossdeath():
 	kills += 1
-	if kills >= 30:
-		$HUD/Message.text = "You are too good\nYou should probably stop"
-	elif kills > 25:
-		$HUD/Message.text = "You're Amazing!"
 	$HUD/Score.text = "Score: " + str(kills)
-	if !$bosstimer.is_stopped():
-		$bosstimer.stop()
-	if $mobtimer.is_stopped():
-		$mobtimer.start()
-	if kills == win_condition && Global.player_health != 0:
+	num_bosses -= 1
+	if num_bosses == 0:
 		level_completed.emit()
 	pass
 func _on_enemydeath():
 	kills += 1 
 	$HUD/Score.text = "Score: " + str(kills)
-	if kills >= 30:
-		$HUD/Message.text = "You are too good\nYou should probably stop"
-	elif kills > 20:
-		$HUD/Message.text = "You're Amazing!"
-	if kills == win_condition && Global.player_health != 0:
-		level_completed.emit()
+	
 	
 
 func _on_game_start():
@@ -93,9 +69,7 @@ func _on_game_start():
 	$Player.set_process(true)
 	$Player.set_process_input(true)
 	$HUD.game_playing()
-	$mobtimer.start()
 	disconnect("game_start", _on_game_start)
-	MusicPlayer.play()
 	pass # Replace with function body.
 
 
@@ -108,18 +82,9 @@ func _on_boss_spawn():
 
 
 func _on_player_is_dead():
+	Global.player_lives -= 1
 	Global.player_points += kills
 	$HUD/Message.text = "Game Over\n You defeated " + str(kills) + " enemies\n"
-	if kills >= 30:
-		$HUD/Message.text += "You are too good\nYou should probably stop"
-	elif kills >= 20:
-		$HUD/Message.text += "You're Amazing!"
-	elif kills >= 15:
-		$HUD/Message.text += "You're pretty good"
-	elif kills >= 10:
-		$HUD/Message.text += "Not bad."
-	elif kills < 5:
-		$HUD/Message.text += "You Blow."
 	$HUD.game_over()
 	$mobtimer.stop()
 	$game_over.start()
@@ -129,7 +94,6 @@ func _on_player_is_dead():
 	
 func start_screen():
 	$HUD.start_message($HUD.start_text)
-	get_tree().call_group("enemy", "queue_free")
 	$Player/AnimationPlayer.play("RESET")
 	$Player.position = player_start_position
 	$Player.velocity = Vector2.ZERO
@@ -137,8 +101,10 @@ func start_screen():
 	if !game_start.is_connected(_on_game_start):
 		game_start.connect(_on_game_start)
 	not_playing()
+	$Camera2D.position.x = 0
 
 func _on_game_over_timeout():
+	get_tree().call_group("enemy", "queue_free")
 	Global.player_died.emit()
 	pass # Replace with function body.
 
@@ -165,10 +131,51 @@ func _on_next_button_pressed():
 
 func _on_level_completed():
 	$next_button.show()
+	$mobtimer.start()
 	$next_button.disabled = false
 	$HUD.win_message($HUD.win_text)
 	Global.level = next_level
 	pass # Replace with function body.
 
 
+func _on_stop_timer_timeout():
+	$stop_timer.stop()
+	$mobtimer.stop()
+	$Camera2D.set_process(true)
+	pass # Replace with function body.
 
+
+func _on_stop_area_entered(area):
+	spawn = mob_scene
+	$Camera2D.set_process(false)
+	$mobtimer.start()
+	$stop_timer.start()
+	Global.screen_bounds = [7395, 8535]
+	pass # Replace with function body.
+
+
+func _on_stop_2_area_entered(area):
+	spawn = mob_scene_2
+	$Camera2D.set_process(false)
+	$mobtimer.wait_time = 3
+	$mobtimer.start()
+	$stop_timer.start()
+	Global.screen_bounds = [10410, 11540]
+	pass # Replace with function body.
+
+
+func _on_stop_3_area_entered(area):
+	Global.screen_bounds = [15010, 16140]
+	$Camera2D.set_process(false)
+	spawn = mob_scene
+	await $Boss2.enemydeath
+	$end_timer.start()
+	end = true
+	spawn_boss(Vector2(Global.screen_bounds[0], y_position))
+	spawn_boss(Vector2(Global.screen_bounds[1], y_position))
+	pass # Replace with function body.
+
+
+func _on_end_timer_timeout():
+	level_completed.emit()
+	pass # Replace with function body.

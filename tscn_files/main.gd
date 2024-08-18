@@ -45,7 +45,6 @@ func _deferred_goto_scene(path):
 
 
 func _on_next_button_next_pressed(next_scene):
-	MusicPlayer.stop()
 	Global.screen_bounds = [0, 1142]
 	goto_scene(next_scene)
 	if get_tree().paused:
@@ -53,14 +52,11 @@ func _on_next_button_next_pressed(next_scene):
 	pass # Replace with function body.
 
 func _on_player_death():
-	MusicPlayer.stop()
-	Global.player_lives -= 1
 	if Global.player_lives == 0:
-		MusicPlayer.stream = MusicPlayer.music[0]
 		reset()
 	else:
 		goto_scene("res://tscn_files/option_screen.tscn")
-	Global.player_health = 3
+	Global.player_health = 5
 	pass
 	
 func reset():
@@ -70,6 +66,5 @@ func deferred_reset():
 	current_scene.free()
 	get_tree().reload_current_scene()
 	Global.reset_variables()
-	MusicPlayer.play()
 
 

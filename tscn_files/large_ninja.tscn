@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwqo16wf62opb"]
+
+[ext_resource type="PackedScene" uid="uid://duggurmsm510m" path="res://tscn_files/boss_1.tscn" id="1_1s7b7"]
+[ext_resource type="Texture2D" uid="uid://ccvcn3vuuqe5u" path="res://spritesheets/large_ninja.png" id="2_15d6u"]
+
+[node name="Boss1" instance=ExtResource("1_1s7b7")]
+
+[node name="bodysprite" parent="." index="0"]
+texture = ExtResource("2_15d6u")
+
+[node name="armsprite" parent="bodysprite" index="0"]
+texture = ExtResource("2_15d6u")
+
+[node name="CollisionShape2D" parent="pit_detector" index="0"]
+position = Vector2(-20, 9)
+
+[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://duggurmsm510m"]
+[gd_scene load_steps=20 format=3 uid="uid://duggurmsm510m"]
 
 [ext_resource type="Script" path="res://tscn_files/Boss1.gd" id="1_drevb"]
 [ext_resource type="Texture2D" uid="uid://vibmocuxhh7m" path="res://spritesheets/boss_sheet.png" id="2_2meco"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dhq7retdsdkb7" path="res://tscn_files/attacktimer.tscn" id="4_l8f1r"]
 [ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://tscn_files/shine_effect.tscn" id="5_uiujk"]
 [ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://tscn_files/effects.tscn" id="6_xaiwr"]
+[ext_resource type="Shape2D" uid="uid://bs3ypam4w8wv" path="res://tscn_files/personhitbox.tres" id="7_nlw3i"]
 
 [sub_resource type="Animation" id="Animation_64ikc"]
 length = 0.001
@@ -305,10 +306,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0d7rm"]
-size = Vector2(75, 59)
+size = Vector2(121, 92.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r2dij"]
-size = Vector2(75, 56)
+size = Vector2(114, 82)
 
 [node name="Boss1" type="Area2D" groups=["enemy"]]
 position = Vector2(736, 435)
@@ -347,6 +348,7 @@ libraries = {
 }
 
 [node name="Timer" parent="." instance=ExtResource("4_l8f1r")]
+autostart = false
 
 [node name="Parrytimer" parent="." instance=ExtResource("4_l8f1r")]
 wait_time = 3.0
@@ -360,7 +362,7 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leftdetect"]
-position = Vector2(-29, 10)
+position = Vector2(-22.5, -6.75)
 shape = SubResource("RectangleShape2D_0d7rm")
 
 [node name="Rightdetect" type="Area2D" parent="."]
@@ -368,10 +370,19 @@ collision_layer = 0
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rightdetect"]
-position = Vector2(-27.5, 7)
+position = Vector2(-27, -6)
 shape = SubResource("RectangleShape2D_r2dij")
 
 [node name="effects" parent="." instance=ExtResource("6_xaiwr")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="pit_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pit_detector"]
+shape = ExtResource("7_nlw3i")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="downattack" from="." to="." method="_on_downattack"]
@@ -382,3 +393,5 @@ shape = SubResource("RectangleShape2D_r2dij")
 [connection signal="timeout" from="Parrytimer" to="." method="_on_parrytimer_timeout"]
 [connection signal="area_entered" from="Leftdetect" to="." method="_on_leftdetect_area_entered"]
 [connection signal="area_entered" from="Rightdetect" to="." method="_on_rightdetect_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

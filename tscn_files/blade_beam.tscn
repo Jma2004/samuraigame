@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://ocachcfkm3uw"]
+
+[ext_resource type="Texture2D" uid="uid://cmks3n12oeh8x" path="res://spritesheets/blade_beam.png" id="1_g8nns"]
+[ext_resource type="Script" path="res://tscn_files/blade_beam.gd" id="1_rn1o1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xr0dh"]
+size = Vector2(166, 266)
+
+[sub_resource type="Animation" id="Animation_hx6hn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qwrj8"]
+resource_name = "destroyed"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dc1oc"]
+_data = {
+"RESET": SubResource("Animation_hx6hn"),
+"destroyed": SubResource("Animation_qwrj8")
+}
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_rn1o1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(13, -4)
+shape = SubResource("RectangleShape2D_xr0dh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g8nns")
+hframes = 5
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dc1oc")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -5,21 +5,7 @@ func _process(delta):
 	pass
 
 func _on_mobtimer_timeout():
-	if num_enemies < 5:
-		mob_spawn(Vector2(Global.screen_bounds[randi_range(0,1)], y_position), 1, mob_scene)
-	elif num_enemies >= 5 && num_enemies < 10:
-		mob_spawn(Vector2(Global.screen_bounds[randi_range(0,1)], y_position), 1, mob2_scene)
-	elif num_enemies >= 10 and num_enemies < 15:
-		mob_spawn(Vector2(Global.screen_bounds[randi_range(0,1)], y_position), 1, boss_scene)
-	elif num_enemies >= 15:
-		var enemy_array = [mob_scene, mob2_scene, boss_scene]
-		mob_spawn(Vector2(Global.screen_bounds[randi_range(0,1)], y_position), speedscale, enemy_array.pick_random())
-		if speedscale < 2:
-			speedscale += 0.01
-		if $mobtimer.wait_time > 2:
-			$mobtimer.wait_time -= 0.2
-	num_enemies += 1
-	
+	mob_spawn(Vector2(Global.screen_bounds.pick_random(), y_position), 1, spawn)
 	pass # Replace with function body.
 
 func mob_spawn(position, speedscale, mob_scene):
@@ -32,3 +18,46 @@ func mob_spawn(position, speedscale, mob_scene):
 	mob.enemydeath.connect(_on_enemydeath)
 	mob.stunplayer.connect(get_node("Player")._on_stunplayer)
 	pass
+
+func _on_stop_area_entered(area):
+	$stop/CollisionShape2D.set_deferred("disabled", true)
+	$Camera2D.set_process(false)
+	spawn = mob_scene
+	$mobtimer.start(3)
+	$stop_timer.start(10)
+	Global.screen_bounds = [10350, 11430]
+	pass
+	
+func _on_stop_2_area_entered(area):
+	$stop/CollisionShape2D.set_deferred("disabled", true)
+	$Camera2D.set_process(false)
+	$stop_timer.start(15)
+	pass
+
+
+func _on_whip_man_death():
+	$stop_timer.timeout.emit()
+	$stop_timer.stop()
+	spawn = mob2_scene
+	$mobtimer.start(5)
+	pass # Replace with function body.
+
+func spawn_boss(position):
+	var boss = boss_scene.instantiate()
+	boss.position = position
+	boss.scale.x = -1
+	add_child(boss)
+	boss.enemydeath.connect(_on_bossdeath)
+	num_bosses += 1
+	
+func _on_stop_3_area_entered(area):
+	$mobtimer.stop()
+	spawn = mob_scene
+	
+func _on_end_area_entered(area):
+	$end/CollisionShape2D.set_deferred("disabled", true)
+	await get_tree().create_timer(1).timeout
+	spawn_boss(Vector2(17500, y_position))
+	await get_tree().create_timer(15).timeout
+	level_completed.emit()
+	pass # Replace with function body.

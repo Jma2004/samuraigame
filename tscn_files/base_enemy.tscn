@@ -1,12 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://dqx123mjc3e7n"]
+[gd_scene load_steps=22 format=3 uid="uid://dqx123mjc3e7n"]
 
 [ext_resource type="Script" path="res://tscn_files/base_enemy.gd" id="1_fcypi"]
-[ext_resource type="Texture2D" uid="uid://xss86sk2cfw0" path="res://spritesheets/base_enemy_sheet.png" id="2_8aair"]
+[ext_resource type="Texture2D" uid="uid://c67v8evdc8csu" path="res://spritesheets/baseenemysheet (2).png" id="2_ebshh"]
 [ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://tscn_files/sword.tscn" id="2_en4nn"]
 [ext_resource type="PackedScene" uid="uid://cdoot4o8vnsav" path="res://tscn_files/animation_player.tscn" id="3_epbcx"]
 [ext_resource type="Shape2D" uid="uid://ct7qqbc2ukswu" path="res://tscn_files/playerdetection.tres" id="5_2n6og"]
 [ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://tscn_files/effects.tscn" id="5_ib7b0"]
 [ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://tscn_files/shine_effect.tscn" id="5_q5jgy"]
+[ext_resource type="Shape2D" uid="uid://bs3ypam4w8wv" path="res://tscn_files/personhitbox.tres" id="8_ho8ej"]
 
 [sub_resource type="Animation" id="Animation_cexoa"]
 length = 0.001
@@ -139,7 +140,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [9, 8, 7]
+"values": [9, 17, 7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -496,8 +497,8 @@ collision_mask = 2
 script = ExtResource("1_fcypi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_8aair")
-hframes = 17
+texture = ExtResource("2_ebshh")
+hframes = 18
 
 [node name="AnimationPlayer" parent="Sprite2D" instance=ExtResource("3_epbcx")]
 libraries = {
@@ -527,9 +528,25 @@ shape = ExtResource("5_2n6og")
 
 [node name="shine_effect" parent="." instance=ExtResource("5_q5jgy")]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="pit_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pit_detector"]
+shape = ExtResource("8_ho8ej")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="parry" from="sword" to="." method="_on_sword_parry"]
 [connection signal="area_entered" from="playerdetection" to="." method="_on_playerdetection_area_entered"]
 [connection signal="area_exited" from="playerdetection" to="." method="_on_playerdetection_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]
 
 [editable path="sword"]

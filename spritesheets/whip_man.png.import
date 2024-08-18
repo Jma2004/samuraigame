@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nrisbfn22vag"
-path="res://.godot/imported/charactersheet (1).png-c155f0edeafd7135650147400672e7f8.ctex"
+uid="uid://l1b3bjh7pxep"
+path="res://.godot/imported/whip_man.png-523f9da20f80a1a406bbd80beea68841.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritesheets/charactersheet (1).png"
-dest_files=["res://.godot/imported/charactersheet (1).png-c155f0edeafd7135650147400672e7f8.ctex"]
+source_file="res://spritesheets/whip_man.png"
+dest_files=["res://.godot/imported/whip_man.png-523f9da20f80a1a406bbd80beea68841.ctex"]
 
 [params]
 

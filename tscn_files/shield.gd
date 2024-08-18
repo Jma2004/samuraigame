@@ -45,6 +45,7 @@ func turn_off():
 func turn_on():
 	show()
 	$ColorRect.color.a8 = 80 + 5*shield_health
+	monitoring = true
 	$CollisionShape2D.set_deferred("disabled", false)
 	get_parent().set_deferred("monitorable", false)
 	get_parent().set_deferred("monitoring", false)

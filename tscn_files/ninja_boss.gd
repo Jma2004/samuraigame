@@ -2,21 +2,13 @@ extends "res://tscn_files/ninja.gd"
 var jump_velocity = 1000
 var fly_velocity_x = 500
 var fly_velocity_y = -500
-var spin_velocity_x = 650
-var spin_velocity_y = -650
+var spin_velocity_x = 700
+var spin_velocity_y = -350
 signal landed
-var screen_size
 var phase = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport_rect().size
-	$Sprite2D/AnimationPlayer.play("walk")
-	if position.x > Global.player_position.x:
-		scale.x = -1
-		velocity = -1
-	else:
-		scale.x = 1
-		velocity = 1
+	set_process(false)
 	pass # Replace with function body.
 
 
@@ -55,7 +47,6 @@ func _process(delta):
 		position += Vector2(spin_velocity_x, spin_velocity_y)*delta
 		scale.x = (Global.player_position.x - position.x)/abs(Global.player_position.x - position.x)
 		pass
-	position = position.clamp(Vector2.ZERO, screen_size)
 	pass
 
 func jump_attack():
@@ -79,23 +70,29 @@ func _on_playerdetection_area_entered(area):
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	pass
 	
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	await get_tree().create_timer(2).timeout
+	set_process(true)
+	phase = 3
+	$Sprite2D/AnimationPlayer.play("spin")
+	pass
 func _on_area_entered(area):
 	$effects.play("flicker")
 	health -= 1
 	if health == 0:
-		$item_timer.stop()
-		death(health)
-	elif  health < 5:
-		phase = 3
-		await landed
-		spin_velocity_y = -abs(spin_velocity_y)
-		$Sprite2D/AnimationPlayer.play("jump")
-		$Sprite2D/AnimationPlayer.queue("spin")
-	elif health < 10:
-		phase = 2
-		$playerdetection.monitoring = false
-		$Sprite2D/AnimationPlayer.play("fly")
-		$item_timer.start()
+#		$item_timer.stop()
+		death()
+#	elif  health < 5:
+#		phase = 3
+#		await landed
+#		spin_velocity_y = -abs(spin_velocity_y)
+#		$Sprite2D/AnimationPlayer.play("jump")
+#		$Sprite2D/AnimationPlayer.queue("spin")
+#	elif health < 10:
+#		phase = 2
+#		$playerdetection.monitoring = false
+#		$Sprite2D/AnimationPlayer.play("fly")
+#		$item_timer.start()
 	pass
 
 func _on_sword_parry():

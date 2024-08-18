@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xss86sk2cfw0"
-path="res://.godot/imported/base_enemy_sheet.png-65fb31387253c8bbccf32ef6ee3bd3de.ctex"
+uid="uid://bt80m6aoascel"
+path="res://.godot/imported/brittle_bridge_sheet.png-da605166f7e0cc754f26e95580629ce8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritesheets/base_enemy_sheet.png"
-dest_files=["res://.godot/imported/base_enemy_sheet.png-65fb31387253c8bbccf32ef6ee3bd3de.ctex"]
+source_file="res://spritesheets/brittle_bridge_sheet.png"
+dest_files=["res://.godot/imported/brittle_bridge_sheet.png-da605166f7e0cc754f26e95580629ce8.ctex"]
 
 [params]
 

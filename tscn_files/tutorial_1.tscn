@@ -20,14 +20,12 @@ offset_bottom = 309.0
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_30qhn")
 theme_override_font_sizes/font_size = 39
-text = "How To Play
- W - up slash
-S - down slash
-A and D - side slash
-Press Space to dash
-Swing  in the opposite direction to parry an attack
+text = "Parry opponents by swinging in the opposite direction
+of their attack
+Look at the stars to see which way they will swing
 "
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="next_button" parent="." instance=ExtResource("4_ajo7o")]
 offset_left = 953.0

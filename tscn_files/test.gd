@@ -1,11 +1,11 @@
 extends Node2D
-
+var jumping_ninja = preload("res://tscn_files/ninja.tscn")
 var ninja = preload("res://tscn_files/ninja.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.screen_bounds = [0, 1152]
 	Global.ground = 468
-	Global.player_health = 3000
+	Global.player_health = 30005
 	pass # Replace with function body.
 
 
@@ -23,7 +23,7 @@ func _on_ninja_throw_shuriken(shuriken, direction, location):
 
 
 func _on_timer_timeout():
-	ninja_spawn(Vector2(Global.screen_bounds[randi_range(0, 1)], Global.ground - 400), 1, ninja)
+	mob_spawn(Vector2(Global.screen_bounds[randi_range(0, 1)], Global.ground - 300), 1, jumping_ninja)
 	pass # Replace with function body.
 
 func ninja_spawn(position, speedscale, mob_scene):
@@ -42,3 +42,11 @@ func _on_ninja_throw_bomb(item, location):
 	add_child.call_deferred(bomb)
 	bomb.position = location
 	pass # Replace with function body.
+	
+func mob_spawn(position, speedscale, mob_scene):
+	var mob = mob_scene.instantiate() 
+	mob.position = position
+	mob.speedscale = speedscale
+	if(mob.position.x == Global.screen_bounds[1]):
+		mob.scale.x = -1
+	add_child(mob)	

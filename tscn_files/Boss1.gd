@@ -4,16 +4,17 @@ signal hit_wall
 signal boss_death
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	scale.x = velocity
+	velocity = 0
+	set_process(false)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	position.x += speed*velocity*delta
+	position.x = clamp(position.x, Global.screen_bounds[0], Global.screen_bounds[1])
 	if velocity != 0:
 		$AnimationPlayerBody.play("enemywalk")
-	death(health)
 	pass
 	
 
@@ -32,17 +33,17 @@ func _on_timer_timeout():
 	elif attack_variable == -1:
 		attack("downslash")
 
-func death(health_counter):
-	if health_counter == 0:
-		$Parrytimer.stop()
-		$Parrytimer.disconnect("countdown", _on_parrytimer_countdown)
-		$AnimationPlayerBody.play("enemydeath")
-		$AnimationPlayerArm.stop()
-		set_process(false)
-		$Timer.stop()
-		boss_death.emit()
-		await $AnimationPlayerBody.animation_finished
-		queue_free()
+func death():
+	$Parrytimer.stop()
+	$Parrytimer.disconnect("countdown", _on_parrytimer_countdown)
+	$AnimationPlayerBody.play("enemydeath")
+	$AnimationPlayerArm.stop()
+	set_process(false)
+	$Timer.stop()
+	enemydeath.emit()
+	boss_death.emit()
+	await $AnimationPlayerBody.animation_finished
+	queue_free()
 
 func _on_sword_parry():
 	$Parrytimer.start()
@@ -85,4 +86,11 @@ func _on_rightdetect_area_entered(area):
 	scale.x = -1
 	pass # Replace with function body.
 
-
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	$Timer.start()
+	set_process(true)
+	velocity = (Global.player_position.x - position.x)/abs(Global.player_position.x - position.x)
+	pass
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
+	pass

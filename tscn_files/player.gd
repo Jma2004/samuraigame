@@ -180,13 +180,18 @@ func _on_timer_timeout():
 
 
 func _on_stunplayer():
-	if direction:
-		position.x -= 25
-	else:
-		position.x += 25
 	$AnimationPlayer.play("stunned")
 	set_process_input(false)
 	await get_tree().create_timer(0.5).timeout
 	set_process_input(true)
 	pass # Replace with function body.
 
+
+
+
+
+func _on_pit_detector_area_entered(area):
+	$effects.play("flicker")
+	position.y = 648
+	death()
+	pass # Replace with function body.

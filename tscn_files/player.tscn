@@ -1,12 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://cwyyg27diiayw"]
+[gd_scene load_steps=20 format=3 uid="uid://cwyyg27diiayw"]
 
 [ext_resource type="Script" path="res://tscn_files/player.gd" id="1_4vp82"]
-[ext_resource type="Texture2D" uid="uid://nrisbfn22vag" path="res://spritesheets/charactersheet (1).png" id="2_eukey"]
+[ext_resource type="Texture2D" uid="uid://b42tuvsk3hrbm" path="res://spritesheets/playersheet.png" id="2_gu20w"]
 [ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://tscn_files/sword.tscn" id="3_qghoh"]
 [ext_resource type="PackedScene" uid="uid://dhq7retdsdkb7" path="res://tscn_files/attacktimer.tscn" id="4_88333"]
 [ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://tscn_files/effects.tscn" id="4_urvlu"]
 [ext_resource type="PackedScene" uid="uid://cc4au0dfo15hm" path="res://tscn_files/shine_effect.tscn" id="6_of4pn"]
 [ext_resource type="PackedScene" uid="uid://eh6gfgoqdtvn" path="res://tscn_files/shield.tscn" id="7_21d3q"]
+[ext_resource type="Shape2D" uid="uid://bs3ypam4w8wv" path="res://tscn_files/personhitbox.tres" id="8_wxsop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elx2r"]
 size = Vector2(81, 242)
@@ -85,6 +86,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("pit_detector/pit_detector:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_634dv"]
 resource_name = "death"
@@ -139,7 +152,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0861765, 0.26713),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [9, 8, 7]
+"values": [9, 17, 7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -257,6 +270,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.85), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pit_detector/pit_detector:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_tmw1c"]
@@ -468,6 +493,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pit_detector/pit_detector:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e24ds"]
 _data = {
@@ -492,8 +529,8 @@ shape = SubResource("RectangleShape2D_elx2r")
 debug_color = Color(0, 0.6, 0.701961, 0.894118)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_eukey")
-hframes = 17
+texture = ExtResource("2_gu20w")
+hframes = 18
 
 [node name="shield" parent="." instance=ExtResource("7_21d3q")]
 visible = false
@@ -510,7 +547,7 @@ libraries = {
 [node name="attack" parent="." instance=ExtResource("3_qghoh")]
 position = Vector2(98.698, 7)
 collision_layer = 4
-collision_mask = 16
+collision_mask = 8
 
 [node name="CollisionShape2D" parent="attack" index="0"]
 disabled = true
@@ -524,7 +561,16 @@ autostart = false
 
 [node name="shine_effect" parent="." instance=ExtResource("6_of4pn")]
 
+[node name="pit_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="pit_detector" type="CollisionShape2D" parent="pit_detector"]
+position = Vector2(-13, 7.5)
+shape = ExtResource("8_wxsop")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]
 
 [editable path="attack"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctbd85bbj8uup"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://next_button.gd" id="1_rvd25"]
+[ext_resource type="Script" path="res://tscn_files/next_button.gd" id="1_rvd25"]
 [ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="1_tcx8a"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_4omog"]

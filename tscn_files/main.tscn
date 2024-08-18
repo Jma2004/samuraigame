@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0hyagl1spu8j"]
+[gd_scene load_steps=9 format=3 uid="uid://kg2tadht78sy"]
 
 [ext_resource type="Script" path="res://tscn_files/main.gd" id="1_3pqcq"]
 [ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="2_4rpnj"]
 [ext_resource type="Texture2D" uid="uid://by3pqran4h8uk" path="res://spritesheets/bg.png" id="2_f51px"]
-[ext_resource type="PackedScene" uid="uid://ctbd85bbj8uup" path="res://tscn_files/next_button.tscn" id="3_npnty"]
+[ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="3_npnty"]
 [ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="5_ottkq"]
+[ext_resource type="AudioStream" uid="uid://dlh3bwbi51ovb" path="res://game_music/brejeiro.mp3" id="6_0yfdy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bxq81"]
 texture = ExtResource("2_f51px")
@@ -80,18 +81,24 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_fonts/font = ExtResource("2_4rpnj")
 theme_override_font_sizes/font_size = 28
 text = "Use arrow keys to move
-and WASD to attack"
+Use WASD to attack
+Use space to dash
+Press enter to start"
 horizontal_alignment = 1
 
 [node name="Player" parent="start_screen" instance=ExtResource("5_ottkq")]
 position = Vector2(345, 470)
 
 [node name="next_button" parent="start_screen" instance=ExtResource("3_npnty")]
-offset_left = 494.0
-offset_top = 426.0
-offset_right = 657.0
-offset_bottom = 516.0
+offset_left = 496.0
+offset_top = 504.0
+offset_right = 659.0
+offset_bottom = 594.0
 text = "Start"
 next_scene = "res://tscn_files/tutorial_1.tscn"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="start_screen"]
+stream = ExtResource("6_0yfdy")
+autoplay = true
 
 [connection signal="next_pressed" from="start_screen/next_button" to="." method="_on_next_button_next_pressed"]

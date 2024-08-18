@@ -3,10 +3,12 @@ var health = 3
 signal start_game
 @export var start_text := "start"
 @export var win_text := "win"
+var music_player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	$Score.text = "Score: 0"
+	music_player = get_node("/root/Node2D/Music")
 	pass # Replace with function body.
 
 
@@ -57,4 +59,12 @@ func _on_button_pressed():
 
 func _on_pause_button_toggled(button_pressed):
 	get_tree().paused = not get_tree().paused
+	pass # Replace with function body.
+
+
+func _on_music_button_toggled(button_pressed):
+	if button_pressed:
+		music_player.volume_db = -80
+	else:
+		music_player.volume_db = -10
 	pass # Replace with function body.

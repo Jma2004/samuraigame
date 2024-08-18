@@ -465,6 +465,17 @@ shape = ExtResource("5_ae3hg")
 [node name="shield" parent="." instance=ExtResource("8_f3ujg")]
 shield_health = 0
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="pit_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pit_detector"]
+shape = ExtResource("1_midv8")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="parry" from="sword" to="." method="_on_sword_parry"]
 [connection signal="area_entered" from="playerdetection" to="." method="_on_playerdetection_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]

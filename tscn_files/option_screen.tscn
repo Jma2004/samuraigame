@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://tscn_files/option_screen.gd" id="1_3gax8"]
 [ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="1_yo0lo"]
-[ext_resource type="PackedScene" uid="uid://ctbd85bbj8uup" path="res://tscn_files/next_button.tscn" id="3_io4ee"]
+[ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="3_io4ee"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3gax8")
 
 [node name="add_health" type="Button" parent="."]
+modulate = Color(10, 1, 1, 1)
 offset_left = 80.0
 offset_top = 380.0
 offset_right = 310.0
@@ -68,6 +69,7 @@ theme_override_font_sizes/font_size = 36
 text = "Points: "
 
 [node name="add_speed" type="Button" parent="."]
+modulate = Color(2, 3, 12, 1)
 offset_left = 344.0
 offset_top = 380.0
 offset_right = 574.0
@@ -75,7 +77,8 @@ offset_bottom = 508.0
 theme_override_fonts/font = ExtResource("1_yo0lo")
 theme_override_font_sizes/font_size = 24
 text = "Speed +1
-5 points"
+5 points
+(dont pick this)"
 
 [node name="slow_down" type="Button" parent="."]
 visible = false
@@ -90,6 +93,7 @@ text = "Slow Down +1
 5 points"
 
 [node name="add_shield" type="Button" parent="."]
+modulate = Color(15.29, 9.41, 20, 1)
 offset_left = 608.0
 offset_top = 380.0
 offset_right = 838.0
@@ -100,6 +104,7 @@ text = "Shield +1
 10 points"
 
 [node name="add_lives" type="Button" parent="."]
+modulate = Color(61.17, 3.24, 7.36, 1)
 offset_left = 865.0
 offset_top = 380.0
 offset_right = 1095.0

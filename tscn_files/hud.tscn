@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d08k7ipy0sjun"]
+[gd_scene load_steps=13 format=3 uid="uid://d08k7ipy0sjun"]
 
 [ext_resource type="Script" path="res://tscn_files/hud.gd" id="1_1xfca"]
 [ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="2_lg15j"]
 [ext_resource type="Texture2D" uid="uid://6pf06no5p0qn" path="res://spritesheets/play.png" id="3_xbfuq"]
 [ext_resource type="Texture2D" uid="uid://bnvo43pxpi8cs" path="res://spritesheets/pause.png" id="4_e1dug"]
+[ext_resource type="Texture2D" uid="uid://cuqohtr42upej" path="res://spritesheets/sound_on.png" id="5_8sbd8"]
+[ext_resource type="Texture2D" uid="uid://bljyf0aeecxcx" path="res://spritesheets/sound_off.png" id="6_5cvqe"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_wvita"]
 action = &"Start"
@@ -18,6 +20,14 @@ unicode = 112
 
 [sub_resource type="Shortcut" id="Shortcut_tqmwl"]
 events = [SubResource("InputEventKey_w44ao")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_pvgm4"]
+device = -1
+keycode = 77
+unicode = 109
+
+[sub_resource type="Shortcut" id="Shortcut_0ragp"]
+events = [SubResource("InputEventKey_pvgm4")]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1xfca")
@@ -38,9 +48,10 @@ text = "LIVES:"
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -232.5
-offset_right = 232.5
-offset_bottom = 220.0
+offset_left = -232.0
+offset_top = 59.0
+offset_right = 233.0
+offset_bottom = 279.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -115,6 +126,20 @@ shortcut = SubResource("Shortcut_tqmwl")
 texture_normal = ExtResource("4_e1dug")
 texture_pressed = ExtResource("3_xbfuq")
 
+[node name="music_button" type="TextureButton" parent="."]
+modulate = Color(20, 20, 20, 1)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+offset_right = 44.0
+grow_vertical = 0
+toggle_mode = true
+shortcut = SubResource("Shortcut_0ragp")
+texture_normal = ExtResource("5_8sbd8")
+texture_pressed = ExtResource("6_5cvqe")
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Controls" to="." method="_on_controls_pressed"]
 [connection signal="toggled" from="pause_button" to="." method="_on_pause_button_toggled"]
+[connection signal="toggled" from="music_button" to="." method="_on_music_button_toggled"]

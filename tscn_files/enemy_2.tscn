@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://tscn_files/enemy_2.gd" id="1_4dwse"]
 [ext_resource type="Shape2D" uid="uid://bs3ypam4w8wv" path="res://tscn_files/personhitbox.tres" id="2_5unmw"]
-[ext_resource type="Texture2D" uid="uid://ciebftus8inh0" path="res://spritesheets/stage2enemy1.png" id="2_iit6l"]
+[ext_resource type="Texture2D" uid="uid://bmd1uoom57pbx" path="res://spritesheets/enemy2sheet.png" id="2_d1row"]
 [ext_resource type="PackedScene" uid="uid://cdoot4o8vnsav" path="res://tscn_files/animation_player.tscn" id="4_t6wej"]
 [ext_resource type="PackedScene" uid="uid://m5rb2vwhtbfb" path="res://tscn_files/sword.tscn" id="5_3202g"]
 [ext_resource type="PackedScene" uid="uid://cb3hyknybd271" path="res://tscn_files/effects.tscn" id="6_h24r4"]
@@ -165,7 +165,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [9, 8, 7]
+"values": [9, 17, 7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -522,8 +522,8 @@ script = ExtResource("1_4dwse")
 speed = 150
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_iit6l")
-hframes = 17
+texture = ExtResource("2_d1row")
+hframes = 18
 
 [node name="AnimationPlayer" parent="Sprite2D" instance=ExtResource("4_t6wej")]
 libraries = {
@@ -548,17 +548,28 @@ shape = ExtResource("2_5unmw")
 position = Vector2(-11, 1)
 
 [node name="playerdetection" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerdetection"]
-position = Vector2(87, -1)
+position = Vector2(77.5, -1)
 shape = ExtResource("9_hkdsh")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="pit_detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pit_detector"]
+shape = ExtResource("2_5unmw")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="parry" from="sword" to="." method="_on_sword_parry"]
 [connection signal="area_entered" from="shield" to="." method="_on_shield_area_entered"]
 [connection signal="shield_broken" from="shield" to="." method="_on_shield_shield_broken"]
 [connection signal="area_entered" from="playerdetection" to="." method="_on_playerdetection_area_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]
 
 [editable path="shield"]
