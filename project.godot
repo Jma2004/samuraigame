@@ -102,3 +102,4 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.180392, 0.180392, 0.180392, 1)

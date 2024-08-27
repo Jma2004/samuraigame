@@ -1,0 +1,158 @@
+[gd_scene load_steps=12 format=3 uid="uid://ugrikh8vncej"]
+
+[ext_resource type="Texture2D" uid="uid://bef8utbbdiuk6" path="res://spritesheets/level_5_sheet.png" id="1_b6m13"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="1_jl8x7"]
+[ext_resource type="Script" path="res://tscn_files/level_7.gd" id="1_oc54p"]
+[ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="2_d528j"]
+[ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="3_furcu"]
+[ext_resource type="AudioStream" uid="uid://byhoej0oy2glh" path="res://game_music/corcovado.mp3" id="4_mcwmd"]
+[ext_resource type="PackedScene" uid="uid://cerp5nsk2btl2" path="res://tscn_files/challenger.tscn" id="6_52tp6"]
+[ext_resource type="PackedScene" uid="uid://drgltxkcmhn11" path="res://tscn_files/health.tscn" id="7_j8wdq"]
+[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="8_bu22p"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ctd1p"]
+texture = ExtResource("1_b6m13")
+texture_region_size = Vector2i(100, 100)
+0:0/0 = 0
+1:0/next_alternative_id = 7
+1:0/0 = 0
+1:0/1 = 1
+1:0/1/modulate = Color(1.2549, 0.662745, 1.51765, 1)
+1:0/2 = 2
+1:0/2/modulate = Color(1.60392, 1.67451, 1.75686, 1)
+1:0/3 = 3
+1:0/3/modulate = Color(8.83, 4, 2, 1)
+1:0/4 = 4
+1:0/4/modulate = Color(16.77, 10, 2, 0.52)
+1:0/5 = 5
+1:0/5/modulate = Color(30.59, 13.23, 1, 0.4)
+1:0/6 = 6
+1:0/6/modulate = Color(41.77, 17.35, 1, 1)
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:0/0/modulate = Color(1, 1, 1, 0.509804)
+6:0/0 = 0
+7:0/0 = 0
+8:0/next_alternative_id = 2
+8:0/0 = 0
+8:0/1 = 1
+8:0/1/flip_h = true
+9:0/next_alternative_id = 2
+9:0/0 = 0
+9:0/1 = 1
+9:0/1/flip_h = true
+10:0/0 = 0
+11:0/0 = 0
+12:0/next_alternative_id = 2
+12:0/0 = 0
+12:0/1 = 1
+12:0/1/flip_v = true
+
+[sub_resource type="TileSet" id="TileSet_767dv"]
+tile_size = Vector2i(100, 100)
+sources/0 = SubResource("TileSetAtlasSource_ctd1p")
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_oc54p")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_767dv")
+format = 2
+layer_0/tile_data = PackedInt32Array(393227, 0, 0, 393226, 0, 0, 393225, 0, 0, 393224, 0, 0, 393223, 0, 0, 393222, 0, 0, 393221, 0, 0, 393220, 0, 0, 393219, 0, 0, 393218, 0, 0, 393217, 0, 0, 393216, 0, 0, 0, 65536, 0, 1, 65536, 0, 2, 65536, 0, 3, 65536, 0, 4, 65536, 0, 5, 65536, 0, 6, 65536, 0, 7, 65536, 0, 8, 65536, 0, 9, 65536, 0, 10, 65536, 0, 11, 65536, 0, 65536, 65536, 65536, 65537, 65536, 65536, 65538, 65536, 65536, 65539, 65536, 65536, 65540, 65536, 65536, 65541, 65536, 65536, 65542, 65536, 65536, 65543, 65536, 65536, 65544, 65536, 65536, 65545, 65536, 65536, 65546, 65536, 65536, 65547, 65536, 65536, 131072, 65536, 131072, 131073, 65536, 131072, 131074, 65536, 131072, 131075, 65536, 131072, 131076, 65536, 131072, 131077, 65536, 131072, 131078, 65536, 131072, 131079, 65536, 131072, 131080, 65536, 131072, 131081, 65536, 131072, 131082, 65536, 131072, 131083, 65536, 131072, 196608, 65536, 196608, 196609, 65536, 196608, 196610, 65536, 196608, 196611, 65536, 196608, 196612, 65536, 196608, 196613, 65536, 196608, 196614, 65536, 196608, 196615, 65536, 196608, 196616, 65536, 196608, 196617, 65536, 196608, 196618, 65536, 196608, 196619, 65536, 196608, 262144, 65536, 196608, 327680, 65536, 196608, 327681, 65536, 196608, 327682, 65536, 196608, 327683, 65536, 196608, 327684, 65536, 196608, 327685, 65536, 196608, 327686, 65536, 196608, 327687, 65536, 196608, 327688, 65536, 196608, 327689, 65536, 196608, 262153, 65536, 196608, 262154, 65536, 196608, 262155, 65536, 196608, 327691, 65536, 196608, 262152, 65536, 196608, 262151, 65536, 196608, 262150, 65536, 393216, 262149, 65536, 393216, 262148, 65536, 393216, 262147, 65536, 196608, 262146, 65536, 196608, 262145, 65536, 196608, 327690, 65536, 196608)
+layer_1/name = ""
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(327680, 65536, 327680, 327681, 65536, 327680, 327682, 65536, 327680, 327683, 65536, 327680, 327684, 65536, 327680, 327685, 65536, 327680, 327686, 65536, 327680, 327687, 65536, 327680, 327688, 65536, 327680, 327689, 65536, 327680, 327690, 65536, 327680, 327691, 65536, 327680, 262153, 65536, 262144, 262152, 65536, 262144, 262151, 65536, 262144, 262150, 65536, 262144, 262149, 65536, 262144, 262148, 65536, 262144, 262147, 65536, 262144, 262146, 65536, 262144, 262145, 65536, 262144, 196611, 65536, 262144, 196612, 65536, 262144, 196613, 65536, 262144, 196614, 65536, 262144, 196615, 65536, 262144, 262154, 65536, 262144)
+layer_2/name = ""
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array(262144, 524288, 0, 262145, 589824, 0, 262146, 655360, 0, 262147, 655360, 0, 262148, 589824, 65536, 262149, 524288, 65536, 262150, 524288, 65536, 262151, 524288, 0, 262152, 524288, 0, 262153, 524288, 0, 262154, 524288, 0, 262155, 524288, 65536, 327680, 327680, 0, 327681, 327680, 0, 327682, 327680, 0, 327683, 327680, 0, 327684, 327680, 0, 327685, 327680, 0, 327686, 327680, 0, 327687, 327680, 0, 327688, 327680, 0, 327689, 327680, 0, 327690, 327680, 0, 327691, 327680, 0)
+layer_3/name = ""
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 0
+layer_3/tile_data = PackedInt32Array(262155, 131072, 0, 327691, 196608, 0, 393227, 196608, 0, 393226, 196608, 0, 327690, 131072, 0, 262144, 131072, 0, 327680, 196608, 0, 393216, 196608, 0, 327681, 131072, 0, 393217, 131072, 0)
+
+[node name="HUD" parent="." instance=ExtResource("1_jl8x7")]
+
+[node name="health" parent="HUD" index="6"]
+offset_left = 1152.0
+offset_top = 42.0
+offset_right = 1652.0
+offset_bottom = 98.0
+scale = Vector2(-1, 1)
+
+[node name="boss_health" parent="HUD" instance=ExtResource("7_j8wdq")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mcwmd")
+autoplay = true
+
+[node name="Player" parent="." instance=ExtResource("2_d528j")]
+position = Vector2(882, 471)
+scale = Vector2(-1, 1)
+
+[node name="challenger" parent="." instance=ExtResource("6_52tp6")]
+position = Vector2(199, 471)
+
+[node name="game_over" type="Label" parent="."]
+visible = false
+offset_left = 378.0
+offset_top = 40.0
+offset_right = 781.0
+offset_bottom = 246.0
+theme_override_fonts/font = ExtResource("8_bu22p")
+theme_override_font_sizes/font_size = 36
+text = "The end.
+THANKS FOR PLAYING!"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="game_over"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.795
+anchor_right = 0.35
+anchor_bottom = 0.795
+offset_left = -142.05
+offset_top = -46.77
+offset_right = 258.95
+offset_bottom = 395.23
+text = "Tracklist:
+Opening - Brejeiro, Bola Sete
+Stage 1 - Bacarra, Bola sete
+Stage 2 - Odeon, Bola Sete
+Stage 3 - Concolacao, Bola Sete
+Old Man fight - Recuerdos de la Alhambra, Bola sete
+Stage 5 - Pau de Arara, Bola Sete
+Stage 5 boss - Meu Mundo Diferente, Bola Sete
+Ghost fight - Prelude no 1, Bola Sete
+Challenger fight - Corcovado, Oscar Peterson
+Ending - Por um Amor by Bola Sete
+Dojo song - Solamente una vez, Bola Sete"
+horizontal_alignment = 1
+
+[node name="next_button" parent="." instance=ExtResource("3_furcu")]
+visible = false
+offset_left = 930.0
+offset_top = 508.0
+offset_right = 1093.0
+offset_bottom = 598.0
+
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="is_dead" from="Player" to="." method="_on_player_is_dead"]
+[connection signal="died" from="challenger" to="." method="_on_challenger_died"]
+[connection signal="hit" from="challenger" to="." method="_on_challenger_hit"]
+[connection signal="player_parry" from="challenger" to="Player" method="_on_stunplayer"]
+
+[editable path="HUD"]

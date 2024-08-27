@@ -6,15 +6,14 @@
 [node name="Node2D" instance=ExtResource("1_thfsx")]
 script = ExtResource("2_m8bxj")
 
-[node name="old_man" parent="." index="0"]
+[node name="old_man" parent="." index="1"]
 shuriken_state = true
 
-[node name="Label" parent="." index="2"]
+[node name="Label" parent="." index="3"]
 text = "Watch out for the ninjas in the trees
 They will shoot shurikens and bombs at you"
-vertical_alignment = 1
 
-[node name="next_button" parent="." index="3"]
+[node name="next_button" parent="." index="5"]
 next_scene = "res://tscn_files/option_screen.tscn"
 
 [connection signal="throw_shuriken" from="old_man" to="." method="_on_old_man_throw_shuriken"]

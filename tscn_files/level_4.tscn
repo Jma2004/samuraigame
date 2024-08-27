@@ -1,16 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://cax8ia0liwf85"]
+[gd_scene load_steps=9 format=3 uid="uid://cax8ia0liwf85"]
 
 [ext_resource type="Script" path="res://tscn_files/level_4.gd" id="1_rx6g2"]
+[ext_resource type="Texture2D" uid="uid://xwnoj58s1br2" path="res://spritesheets/dojo.png" id="2_5yue3"]
 [ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="2_1060f"]
 [ext_resource type="PackedScene" uid="uid://dt1ho1tvon4ip" path="res://tscn_files/old_man.tscn" id="3_ujk6l"]
-[ext_resource type="PackedScene" uid="uid://d08k7ipy0sjun" path="res://tscn_files/hud.tscn" id="4_xiuhr"]
-[ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="5_4lmqk"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="4_xiuhr"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="5_bkvdv"]
 [ext_resource type="AudioStream" uid="uid://c1ux6gra8quyc" path="res://game_music/Recuerdos de la Alhambra.mp3" id="5_ptvpq"]
+[ext_resource type="PackedScene" uid="uid://drgltxkcmhn11" path="res://tscn_files/health.tscn" id="6_qkb1x"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_rx6g2")
 next_level = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.568627, 0.568627, 0.568627, 1)
+texture = ExtResource("2_5yue3")
+centered = false
 
 [node name="Player" parent="." instance=ExtResource("2_1060f")]
 z_index = 1
@@ -23,25 +29,22 @@ shield = 1
 attacking = true
 
 [node name="HUD" parent="." instance=ExtResource("4_xiuhr")]
-start_text = "The path ahead is too treacherous. "
-win_text = "Thanks for playing! TBC."
+start_text = "It's too dangerous. I can't let you pass."
 
 [node name="game_over" type="Timer" parent="."]
 wait_time = 2.0
-
-[node name="Boss_health_label" type="Label" parent="."]
-offset_left = 967.0
-offset_top = 32.0
-offset_right = 1141.0
-offset_bottom = 82.0
-theme_override_fonts/font = ExtResource("5_4lmqk")
-theme_override_font_sizes/font_size = 24
-text = "Boss Health: 10"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ptvpq")
 volume_db = -10.0
 autoplay = true
+
+[node name="boss_health" parent="." instance=ExtResource("6_qkb1x")]
+offset_left = 1144.0
+offset_top = 34.0
+offset_right = 1644.0
+offset_bottom = 90.0
+scale = Vector2(-1, 1)
 
 [node name="next_button" parent="." instance=ExtResource("5_bkvdv")]
 z_index = 1
@@ -60,4 +63,5 @@ next_scene = "res://tscn_files/option_screen.tscn"
 [connection signal="stun_player" from="old_man" to="Player" method="_on_stunplayer"]
 [connection signal="throw_shuriken" from="old_man" to="." method="_on_ninja_throw_shuriken"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="timeout" from="game_over" to="." method="_on_game_over_timeout"]
 [connection signal="finished" from="Music" to="." method="_on_music_finished"]

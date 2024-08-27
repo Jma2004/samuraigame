@@ -13,5 +13,3 @@ texture = ExtResource("2_15d6u")
 
 [node name="CollisionShape2D" parent="pit_detector" index="0"]
 position = Vector2(-20, 9)
-
-[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]

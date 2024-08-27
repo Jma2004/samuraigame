@@ -1,15 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://daqw2fdrfrktp"]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://tscn_files/level1.gd" id="1_qtsou"]
 [ext_resource type="PackedScene" uid="uid://dqx123mjc3e7n" path="res://tscn_files/base_enemy.tscn" id="2_6ls0d"]
 [ext_resource type="PackedScene" uid="uid://duggurmsm510m" path="res://tscn_files/boss_1.tscn" id="3_pjpes"]
 [ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="4_26jbh"]
 [ext_resource type="Texture2D" uid="uid://by3pqran4h8uk" path="res://spritesheets/bg.png" id="5_oi1wq"]
-[ext_resource type="PackedScene" uid="uid://d08k7ipy0sjun" path="res://tscn_files/hud.tscn" id="6_tp178"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/HUD.tscn" id="6_tp178"]
 [ext_resource type="Script" path="res://tscn_files/camera.gd" id="7_hcu6e"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="8_mieym"]
 [ext_resource type="PackedScene" uid="uid://crcf5jko05l08" path="res://tscn_files/enemy_3.tscn" id="8_yjdbd"]
 [ext_resource type="AudioStream" uid="uid://0qqeq2nav860" path="res://game_music/bacarra.mp3" id="9_o0u8l"]
+[ext_resource type="PackedScene" uid="uid://cs3rrx4mfl564" path="res://tscn_files/heart_pickup.tscn" id="10_ufv7h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nkpyq"]
 texture = ExtResource("5_oi1wq")
@@ -251,6 +252,12 @@ stream = ExtResource("9_o0u8l")
 volume_db = -3.0
 autoplay = true
 
+[node name="heart_pickup" parent="." instance=ExtResource("10_ufv7h")]
+position = Vector2(11584, 501)
+
+[node name="heart_pickup2" parent="." instance=ExtResource("10_ufv7h")]
+position = Vector2(15000.2, 493.407)
+
 [node name="next_button" parent="." instance=ExtResource("8_mieym")]
 offset_left = 15898.0
 offset_top = 537.0
@@ -292,4 +299,5 @@ next_scene = "res://tscn_files/tutorial_2.tscn"
 [connection signal="enemydeath" from="Boss1" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="Boss2" to="." method="_on_enemydeath"]
 [connection signal="timeout" from="end_timer" to="." method="_on_end_timer_timeout"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]
 [connection signal="pressed" from="next_button" to="." method="_on_next_button_pressed"]

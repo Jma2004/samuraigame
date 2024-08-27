@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dr12ga2rionn7"]
+[gd_scene load_steps=21 format=3 uid="uid://dr12ga2rionn7"]
 
 [ext_resource type="Script" path="res://tscn_files/level_3.gd" id="2_i0ds4"]
 [ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="3_uiejg"]
 [ext_resource type="PackedScene" uid="uid://rke275gmj8sh" path="res://tscn_files/ninja.tscn" id="3_vkjiq"]
 [ext_resource type="TileSet" uid="uid://ck318a36xt8cb" path="res://tscn_files/level_3.tres" id="4_1xmrs"]
-[ext_resource type="PackedScene" uid="uid://d08k7ipy0sjun" path="res://tscn_files/hud.tscn" id="5_jptjg"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="5_jptjg"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="6_ijo40"]
 [ext_resource type="AudioStream" uid="uid://ckwsvh2676d5" path="res://game_music/concolacao_live.mp3" id="7_75xvv"]
 [ext_resource type="PackedScene" uid="uid://d1lqqg0tihfq0" path="res://tscn_files/tree_ninja.tscn" id="7_aj8y6"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c1xbjlqmdk646" path="res://tscn_files/bomb.tscn" id="9_rv5sa"]
 [ext_resource type="PackedScene" uid="uid://bwqo16wf62opb" path="res://tscn_files/large_ninja.tscn" id="10_vqc66"]
 [ext_resource type="PackedScene" uid="uid://b5bvdgjk3c3ut" path="res://tscn_files/ninja_boss.tscn" id="11_p0j0k"]
+[ext_resource type="PackedScene" uid="uid://cs3rrx4mfl564" path="res://tscn_files/heart_pickup.tscn" id="14_xqtsu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l5hps"]
 size = Vector2(60, 965)
@@ -514,7 +515,10 @@ scale = Vector2(0.929688, 1.33203)
 texture = ExtResource("8_3dqt3")
 
 [node name="ninja_boss" parent="." instance=ExtResource("11_p0j0k")]
-position = Vector2(31331, 489)
+position = Vector2(31152, 484)
+
+[node name="ninja_boss2" parent="." instance=ExtResource("11_p0j0k")]
+position = Vector2(32611, 484)
 
 [node name="spikes8" type="Area2D" parent="."]
 z_index = 2
@@ -613,6 +617,22 @@ scale = Vector2(1, -1)
 [node name="large_ninja_timer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="heart_pickup" parent="." instance=ExtResource("14_xqtsu")]
+z_index = 3
+position = Vector2(36732, 501)
+
+[node name="heart_pickup2" parent="." instance=ExtResource("14_xqtsu")]
+z_index = 3
+position = Vector2(30244, 515)
+
+[node name="heart_pickup3" parent="." instance=ExtResource("14_xqtsu")]
+z_index = 3
+position = Vector2(18563.8, 508.531)
+
+[node name="heart_pickup4" parent="." instance=ExtResource("14_xqtsu")]
+z_index = 3
+position = Vector2(9682.81, 534.002)
+
 [node name="next_button" parent="." instance=ExtResource("6_ijo40")]
 z_index = 1
 offset_left = 45800.0
@@ -642,9 +662,13 @@ next_scene = "res://tscn_files/option_screen.tscn"
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
 [connection signal="timeout" from="game_over" to="." method="_on_game_over_timeout"]
 [connection signal="area_entered" from="Camera2D/right" to="ninja_boss" method="_on_right_area_entered"]
+[connection signal="area_entered" from="Camera2D/right" to="ninja_boss2" method="_on_right_area_entered"]
 [connection signal="area_entered" from="Camera2D/left" to="ninja_boss" method="_on_left_area_entered"]
+[connection signal="area_entered" from="Camera2D/left" to="ninja_boss2" method="_on_left_area_entered"]
 [connection signal="area_entered" from="Camera2D/top" to="ninja_boss" method="_on_top_area_entered"]
+[connection signal="area_entered" from="Camera2D/top" to="ninja_boss2" method="_on_top_area_entered"]
 [connection signal="area_entered" from="Camera2D/bottom" to="ninja_boss" method="_on_bottom_area_entered"]
+[connection signal="area_entered" from="Camera2D/bottom" to="ninja_boss2" method="_on_bottom_area_entered"]
 [connection signal="enemydeath" from="ninja" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja2" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja3" to="." method="_on_enemydeath"]
@@ -661,6 +685,7 @@ next_scene = "res://tscn_files/option_screen.tscn"
 [connection signal="enemydeath" from="ninja14" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja15" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja_boss" to="." method="_on_enemydeath"]
+[connection signal="enemydeath" from="ninja_boss2" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja16" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja18" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="ninja19" to="." method="_on_enemydeath"]

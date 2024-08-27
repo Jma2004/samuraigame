@@ -5,7 +5,6 @@ var ninja = preload("res://tscn_files/ninja.tscn")
 func _ready():
 	Global.screen_bounds = [0, 1152]
 	Global.ground = 468
-	Global.player_health = 30005
 	pass # Replace with function body.
 
 
@@ -50,3 +49,13 @@ func mob_spawn(position, speedscale, mob_scene):
 	if(mob.position.x == Global.screen_bounds[1]):
 		mob.scale.x = -1
 	add_child(mob)	
+
+
+
+
+func _on_final_boss_shoot_beam(item, position, direction):
+	var beam = item.instantiate()
+	beam.position = position
+	beam.direction = direction/abs(direction)
+	add_child.call_deferred(beam)
+	pass # Replace with function body.

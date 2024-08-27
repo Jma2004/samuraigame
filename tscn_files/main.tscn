@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://kg2tadht78sy"]
+[gd_scene load_steps=9 format=3 uid="uid://b3r8avmqihune"]
 
 [ext_resource type="Script" path="res://tscn_files/main.gd" id="1_3pqcq"]
 [ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="2_4rpnj"]
@@ -89,6 +89,10 @@ horizontal_alignment = 1
 [node name="Player" parent="start_screen" instance=ExtResource("5_ottkq")]
 position = Vector2(345, 470)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="start_screen"]
+stream = ExtResource("6_0yfdy")
+autoplay = true
+
 [node name="next_button" parent="start_screen" instance=ExtResource("3_npnty")]
 offset_left = 496.0
 offset_top = 504.0
@@ -96,9 +100,5 @@ offset_right = 659.0
 offset_bottom = 594.0
 text = "Start"
 next_scene = "res://tscn_files/tutorial_1.tscn"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="start_screen"]
-stream = ExtResource("6_0yfdy")
-autoplay = true
 
 [connection signal="next_pressed" from="start_screen/next_button" to="." method="_on_next_button_next_pressed"]

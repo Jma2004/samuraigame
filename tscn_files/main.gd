@@ -9,11 +9,6 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
 	# or some other function in the current scene.
@@ -49,13 +44,12 @@ func _on_next_button_next_pressed(next_scene):
 	goto_scene(next_scene)
 	if get_tree().paused:
 		get_tree().paused = false
+	if Global.checkpoint_reached:
+		Global.checkpoint_reached = false
 	pass # Replace with function body.
 
 func _on_player_death():
-	if Global.player_lives == 0:
-		reset()
-	else:
-		goto_scene("res://tscn_files/option_screen.tscn")
+	goto_scene("res://tscn_files/option_screen.tscn")
 	Global.player_health = 5
 	pass
 	

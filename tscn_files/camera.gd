@@ -2,6 +2,10 @@ extends Camera2D
 @export var camera_speed = 200
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Global.checkpoint_reached:
+		position.x = get_parent().checkpoint_position - 576
+		reset_smoothing()
+		align()
 	pass # Replace with function body.
 
 

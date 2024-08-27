@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ocachcfkm3uw"]
+[gd_scene load_steps=8 format=3 uid="uid://ocachcfkm3uw"]
 
 [ext_resource type="Texture2D" uid="uid://cmks3n12oeh8x" path="res://spritesheets/blade_beam.png" id="1_g8nns"]
 [ext_resource type="Script" path="res://tscn_files/blade_beam.gd" id="1_rn1o1"]
@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xr0dh"]
 size = Vector2(166, 266)
 
-[sub_resource type="Animation" id="Animation_hx6hn"]
+[sub_resource type="Animation" id="Animation_f2j41"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -32,8 +32,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
-[sub_resource type="Animation" id="Animation_qwrj8"]
+[sub_resource type="Animation" id="Animation_ucd6p"]
 resource_name = "destroyed"
 length = 0.4
 tracks/0/type = "value"
@@ -61,10 +73,27 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dc1oc"]
+[sub_resource type="Animation" id="Animation_ekj52"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4q1br"]
 _data = {
-"RESET": SubResource("Animation_hx6hn"),
-"destroyed": SubResource("Animation_qwrj8")
+"RESET": SubResource("Animation_f2j41"),
+"destroyed": SubResource("Animation_ucd6p"),
+"rotate": SubResource("Animation_ekj52")
 }
 
 [node name="Area2D" type="Area2D"]
@@ -85,7 +114,7 @@ autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dc1oc")
+"": SubResource("AnimationLibrary_4q1br")
 }
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

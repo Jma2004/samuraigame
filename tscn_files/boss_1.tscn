@@ -395,3 +395,4 @@ shape = ExtResource("7_nlw3i")
 [connection signal="area_entered" from="Rightdetect" to="." method="_on_rightdetect_area_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="pit_detector" to="." method="_on_pit_detector_area_entered"]

@@ -116,7 +116,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dcgt4"]
-size = Vector2(15, 59)
+size = Vector2(12.5, 175)
 
 [node name="brittle_bridge" type="Area2D"]
 collision_layer = 0
@@ -141,7 +141,7 @@ collision_layer = 8192
 collision_mask = 0
 
 [node name="pitbox" type="CollisionShape2D" parent="pit"]
-position = Vector2(-2, -57)
+position = Vector2(-0.75, -65.5)
 shape = SubResource("RectangleShape2D_dcgt4")
 disabled = true
 debug_color = Color(0.141176, 0, 0.00784314, 0.419608)

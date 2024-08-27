@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://d08k7ipy0sjun"]
+[gd_scene load_steps=14 format=3 uid="uid://b0w5t6ly2ty46"]
 
-[ext_resource type="Script" path="res://tscn_files/hud.gd" id="1_1xfca"]
+[ext_resource type="Script" path="res://tscn_files/HUD.gd" id="1_uost2"]
 [ext_resource type="FontFile" uid="uid://chtiluc2ukomy" path="res://PixelifySans-VariableFont_wght.ttf" id="2_lg15j"]
 [ext_resource type="Texture2D" uid="uid://6pf06no5p0qn" path="res://spritesheets/play.png" id="3_xbfuq"]
 [ext_resource type="Texture2D" uid="uid://bnvo43pxpi8cs" path="res://spritesheets/pause.png" id="4_e1dug"]
 [ext_resource type="Texture2D" uid="uid://cuqohtr42upej" path="res://spritesheets/sound_on.png" id="5_8sbd8"]
 [ext_resource type="Texture2D" uid="uid://bljyf0aeecxcx" path="res://spritesheets/sound_off.png" id="6_5cvqe"]
+[ext_resource type="PackedScene" uid="uid://drgltxkcmhn11" path="res://tscn_files/health.tscn" id="7_5um6e"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_wvita"]
 action = &"Start"
@@ -30,19 +31,7 @@ unicode = 109
 events = [SubResource("InputEventKey_pvgm4")]
 
 [node name="HUD" type="CanvasLayer"]
-script = ExtResource("1_1xfca")
-
-[node name="Lives" type="Label" parent="."]
-anchors_preset = -1
-anchor_top = 0.06
-anchor_bottom = 0.06
-offset_left = 2.0
-offset_top = 8.12
-offset_right = 73.0
-offset_bottom = 45.12
-theme_override_fonts/font = ExtResource("2_lg15j")
-theme_override_font_sizes/font_size = 24
-text = "LIVES:"
+script = ExtResource("1_uost2")
 
 [node name="Message" type="Label" parent="."]
 anchors_preset = 5
@@ -62,13 +51,6 @@ text = "DEFEAT THE BANDITS! USE ARROW KEYS TO MOVE WASD to attack SPACE to jump 
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-
-[node name="Health" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 34.0
-theme_override_fonts/font = ExtResource("2_lg15j")
-theme_override_font_sizes/font_size = 24
-text = "HEALTH:"
 
 [node name="Score" type="Label" parent="."]
 anchors_preset = 1
@@ -138,6 +120,8 @@ toggle_mode = true
 shortcut = SubResource("Shortcut_0ragp")
 texture_normal = ExtResource("5_8sbd8")
 texture_pressed = ExtResource("6_5cvqe")
+
+[node name="health" parent="." instance=ExtResource("7_5um6e")]
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Controls" to="." method="_on_controls_pressed"]

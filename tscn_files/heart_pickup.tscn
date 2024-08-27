@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs3rrx4mfl564"]
+
+[ext_resource type="Script" path="res://tscn_files/heart_pickup.gd" id="1_s1412"]
+[ext_resource type="Texture2D" uid="uid://b1bax0jv3qfmh" path="res://spritesheets/heart.png" id="1_vlx6y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmj2b"]
+size = Vector2(87, 74)
+
+[node name="heart_pickup" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_s1412")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 4)
+shape = SubResource("RectangleShape2D_fmj2b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vlx6y")
+hframes = 5
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

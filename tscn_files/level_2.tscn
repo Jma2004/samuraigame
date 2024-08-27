@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ckwc0iehb8j8f"]
+[gd_scene load_steps=20 format=3 uid="uid://ckwc0iehb8j8f"]
 
 [ext_resource type="Script" path="res://tscn_files/level_2.gd" id="1_gxtni"]
 [ext_resource type="Texture2D" uid="uid://cr4hsng88edtf" path="res://spritesheets/level2.png" id="1_w46s6"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://crcf5jko05l08" path="res://tscn_files/enemy_3.tscn" id="3_5oxqn"]
 [ext_resource type="PackedScene" uid="uid://0jv6x1o2h56y" path="res://tscn_files/enemy_2.tscn" id="3_a3ldo"]
 [ext_resource type="PackedScene" uid="uid://dcycrhjhet12u" path="res://tscn_files/red_enemy.tscn" id="3_nb50p"]
-[ext_resource type="PackedScene" uid="uid://d08k7ipy0sjun" path="res://tscn_files/hud.tscn" id="7_dlik6"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="7_dlik6"]
 [ext_resource type="Script" path="res://tscn_files/camera.gd" id="8_nf6f5"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="8_wbkjb"]
 [ext_resource type="PackedScene" uid="uid://dcp8wakfxwa75" path="res://tscn_files/brittle_bridge.tscn" id="9_l0yhr"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dcegu1i2smc4w" path="res://tscn_files/whip_man.tscn" id="11_hvay5"]
 [ext_resource type="PackedScene" uid="uid://dqx123mjc3e7n" path="res://tscn_files/base_enemy.tscn" id="12_b3nm3"]
 [ext_resource type="AudioStream" uid="uid://p1liwus7t58l" path="res://game_music/Odeon.mp3" id="13_gvhi8"]
+[ext_resource type="PackedScene" uid="uid://cs3rrx4mfl564" path="res://tscn_files/heart_pickup.tscn" id="14_tep1h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bqx7w"]
 texture = ExtResource("1_w46s6")
@@ -264,6 +265,12 @@ stream = ExtResource("13_gvhi8")
 volume_db = -3.0
 autoplay = true
 
+[node name="heart_pickup" parent="." instance=ExtResource("14_tep1h")]
+position = Vector2(11718, 436)
+
+[node name="heart_pickup2" parent="." instance=ExtResource("14_tep1h")]
+position = Vector2(17062, 413)
+
 [node name="next_button" parent="." instance=ExtResource("8_wbkjb")]
 z_index = 1
 offset_left = 18207.0
@@ -304,4 +311,5 @@ next_scene = "res://tscn_files/tutorial_3.tscn"
 [connection signal="stunplayer" from="red_enemy4" to="Player" method="_on_stunplayer"]
 [connection signal="enemydeath" from="BaseEnemy" to="." method="_on_enemydeath"]
 [connection signal="enemydeath" from="BaseEnemy2" to="." method="_on_enemydeath"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]
 [connection signal="pressed" from="next_button" to="." method="_on_next_button_pressed"]

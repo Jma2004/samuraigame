@@ -1,9 +1,10 @@
 extends Area2D
 @export var distance = 600
 var direction = 1
-var speed = 1000
+@export var speed = 1000
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AnimationPlayer.play("rotate")
 	scale.x = direction
 	pass # Replace with function body.
 

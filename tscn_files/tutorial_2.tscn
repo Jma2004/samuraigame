@@ -4,15 +4,14 @@
 
 [node name="Node2D" instance=ExtResource("1_x0w8h")]
 
-[node name="old_man" parent="." index="0"]
+[node name="old_man" parent="." index="1"]
 shield = 1
 
-[node name="Label" parent="." index="2"]
-text = "Hitting people with shields will stun you
-Parry them to disable their shield
-Also keep your distance from the whip people"
+[node name="Label" parent="." index="3"]
+text = "Parry opponents to disable their shield
+Let your opponents fall into the pits"
 
-[node name="next_button" parent="." index="3"]
+[node name="next_button" parent="." index="5"]
 next_scene = "res://tscn_files/option_screen.tscn"
 
 [connection signal="stun_player" from="old_man" to="Player" method="_on_stunplayer"]

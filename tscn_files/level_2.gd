@@ -1,8 +1,5 @@
 extends "res://tscn_files/level1.gd"
 @export var mob2_scene: PackedScene
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _on_mobtimer_timeout():
 	mob_spawn(Vector2(Global.screen_bounds.pick_random(), y_position), 1, spawn)
@@ -12,7 +9,7 @@ func mob_spawn(position, speedscale, mob_scene):
 	var mob = mob_scene.instantiate() 
 	mob.position = position
 	mob.speedscale = speedscale
-	if (mob.position.x == bounds[0]):
+	if (mob.position.x == Global.screen_bounds[0]):
 		mob.scale.x = -1
 	add_child(mob)
 	mob.enemydeath.connect(_on_enemydeath)

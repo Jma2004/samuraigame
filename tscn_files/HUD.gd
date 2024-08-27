@@ -1,54 +1,44 @@
 extends CanvasLayer
 var health = 3
 signal start_game
-@export var start_text := "start"
-@export var win_text := "win"
+@export var start_text: String
+@export var win_text: String
 var music_player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	$Score.text = "Score: 0"
 	music_player = get_node("/root/Node2D/Music")
+	get_node("/root/Node2D/Player").area_entered.connect(on_player_hit)
+	$health.set_health(Global.player_health)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Health.text = "HEALTH: " + str(Global.player_health)
-	$Lives.text = "LIVES: " + str(Global.player_lives)
 	pass
 func start_message(start_text):
 	$Message.text = start_text + "\nPress Start or Enter to Begin"
 	$Message.show()
-	$Health.hide()
-	$Score.hide()
 	$Controls.show()
 	$Button.show()
-	$Lives.hide()
 	$pause_button.hide()
 	pass
 func game_over():
 	$Message.show()
-	$Score.hide()
-	$Health.hide()
-	$Lives.hide()
 	$pause_button.hide()
 func win_message(win_text):
 	$Message.text = win_text + "\nPress Enter or Next to Continue"
 	$Message.show()
 func game_playing():
 	$Message.hide()
-	$Score.show()
-	$Health.show()
 	$Button.hide()
 	$Controls.hide()
-	$Lives.show()
 	$pause_button.show()
 	
 func _on_controls_pressed():
 	$Message.text = "USE ARROW KEYS TO MOVE\n WASD to attack\n SPACE to jump\n MOBILE:SWIPE to ATTACK and TAP to Move"
 	$Message.show()
-	$Health.hide()
 	pass # Replace with function body.
 
 
@@ -68,3 +58,7 @@ func _on_music_button_toggled(button_pressed):
 	else:
 		music_player.volume_db = -10
 	pass # Replace with function body.
+
+func on_player_hit(area):
+	if Global.player_health >= 0:
+		$health.call_deferred("delete_heart")

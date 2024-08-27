@@ -150,15 +150,11 @@ func _on_area_entered(area):
 	$effects.play("flicker")
 	if Global.player_health == 0:
 		death()
-#	if speed > 200:
-#		speed -= 50
-#		$AnimationPlayer.speed_scale -= 0.5
-#		dash_speed -= 50
 		
 func death():
+	set_process_input(false)
 	$AnimationPlayer.play("death")
 	set_process(false)
-	set_process_input(false)
 	is_dead.emit()
 			
 
@@ -183,7 +179,8 @@ func _on_stunplayer():
 	$AnimationPlayer.play("stunned")
 	set_process_input(false)
 	await get_tree().create_timer(0.5).timeout
-	set_process_input(true)
+	if Global.player_health > 0:
+		set_process_input(true)
 	pass # Replace with function body.
 
 

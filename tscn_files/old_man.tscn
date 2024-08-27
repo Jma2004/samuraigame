@@ -1185,7 +1185,7 @@ libraries = {
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detection"]
-position = Vector2(70, 3)
+position = Vector2(150, -2)
 shape = ExtResource("8_xr7gg")
 
 [node name="idle_timer" type="Timer" parent="."]

@@ -3,6 +3,7 @@ extends Area2D
 signal enemydeath
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	scale.x = (position.x - Global.player_position.x)/abs(Global.player_position.x - position.x)
 	pass # Replace with function body.
 
 
