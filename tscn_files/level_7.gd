@@ -9,11 +9,6 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_hud_start_game():
 	$HUD/boss_health.set_health($challenger.health)
 	get_tree().paused = false
@@ -32,12 +27,14 @@ func _on_player_is_dead():
 	game_over.tween_property($Music, "volume_db", -80, 3)
 	game_over.tween_property($TileMap, "modulate", Color(0.01,0.01,0.01), 3)
 	game_over.tween_property($HUD, "visible", false, 3)
+	game_over.tween_property($challenger, "modulate", Color(0.01,0.01,0.01), 3)
 	game_over.set_parallel(false)
 	game_over.tween_property($Player, "position", Vector2(576, 471), 3)
 	game_over.tween_property($Music, "stream", end_song, 0)
 	game_over.tween_property($Music, "volume_db", -3, 0)
 	game_over.tween_property($Music, "playing", true, 0)
 	game_over.tween_property($game_over, "visible", true, 0)
+	await get_tree().create_timer(3).timeout
 	$challenger.queue_free()
 	pass # Replace with function body.
 
@@ -48,6 +45,7 @@ func _on_challenger_died():
 	game_over.set_parallel(true)
 	game_over.tween_property($Music, "volume_db", -80, 3)
 	game_over.tween_property($TileMap, "modulate", Color(0.01,0.01,0.01), 3)
+	game_over.tween_property($challenger, "modulate", Color(0.01,0.01,0.01), 3)
 	game_over.tween_property($HUD, "visible", false, 3)
 	game_over.set_parallel(false)
 	game_over.tween_property($Music, "stream", end_song, 0)

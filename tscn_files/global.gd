@@ -9,7 +9,7 @@ var level := 1
 var screen_bounds := [0.0, 1142.0]
 var player_position := Vector2()
 var ground
-var checkpoint_reached = false
+var checkpoint_reached = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screensize = get_viewport().size

@@ -10,6 +10,8 @@ func _ready():
 #	$shield.update_shield()
 	set_process(false)
 	$Sprite2D/AnimationPlayer.speed_scale = speedscale
+	if !stunplayer.is_connected(get_node("/root/Node2D/Player")._on_stunplayer):
+		stunplayer.connect(get_node("/root/Node2D/Player")._on_stunplayer)
 	pass # Replace with function body.
 
 func _on_sword_parry():

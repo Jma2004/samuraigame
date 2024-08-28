@@ -80,7 +80,6 @@ func start_snow():
 func _on_start_boss_music_area_entered(area):
 	$Camera2D.camera_speed = 200
 	$Music.stream = check_point_music
-	$Music.volume_db = -3
 	var fade_snow = get_tree().create_tween()
 	fade_snow.tween_property($ParallaxBackground, "visible", false, 2)
 	pass # Replace with function body.
@@ -91,6 +90,7 @@ func _on_final_boss_boss_appeared():
 
 
 func _on_boss_stop_area_entered(area):
+	$Music.volume_db = -3
 	$Music.play()
 	$Camera2D.set_process(false)
 	$boss_stop/CollisionShape2D.set_deferred("disabled", true)
@@ -99,7 +99,7 @@ func _on_boss_stop_area_entered(area):
 
 
 func _on_boss_stop_2_area_entered(area):
-	$snowball_timer.start(4)
+	$snowball_timer.start(3)
 	$Camera2D.set_process(false)
 	$boss_stop2/CollisionShape2D.set_deferred("disabled", true)
 	pass # Replace with function body.
@@ -107,12 +107,13 @@ func _on_boss_stop_2_area_entered(area):
 
 func _on_boss_stop_3_area_entered(area):
 	$Camera2D.set_process(false)
-	$snowball_timer.start(4)
 	pass # Replace with function body.
 
 
 func _on_final_boss_defeated():
 	$Camera2D.set_process(true)
+	kills += 10
+	$HUD/Score.text = "Score: " + str(kills)
 	pass # Replace with function body.
 
 
@@ -137,17 +138,6 @@ func _on_stop_player_2_area_entered(area):
 	player.set_process_input(true)
 	pass # Replace with function body.
 
-
-func _on_stop_player_3_area_entered(area):
-	$snowball_timer.stop()
-	$Player/AnimationPlayer.play("RESET")
-	$stop_player3/CollisionShape2D.set_deferred("disabled",true)
-	player.set_process(false)
-	player.set_process_input(false)
-	await get_tree().create_timer(2).timeout
-	player.set_process(true)
-	player.set_process_input(true)
-	pass # Replace with function body.
 
 
 func _on_final_boss_hit():

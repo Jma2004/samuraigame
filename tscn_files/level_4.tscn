@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://xwnoj58s1br2" path="res://spritesheets/dojo.png" id="2_5yue3"]
 [ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="2_1060f"]
 [ext_resource type="PackedScene" uid="uid://dt1ho1tvon4ip" path="res://tscn_files/old_man.tscn" id="3_ujk6l"]
-[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="4_xiuhr"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/HUD.tscn" id="4_xiuhr"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="5_bkvdv"]
 [ext_resource type="AudioStream" uid="uid://c1ux6gra8quyc" path="res://game_music/Recuerdos de la Alhambra.mp3" id="5_ptvpq"]
 [ext_resource type="PackedScene" uid="uid://drgltxkcmhn11" path="res://tscn_files/health.tscn" id="6_qkb1x"]

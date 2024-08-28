@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://ugrikh8vncej"]
 
 [ext_resource type="Texture2D" uid="uid://bef8utbbdiuk6" path="res://spritesheets/level_5_sheet.png" id="1_b6m13"]
-[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="1_jl8x7"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/HUD.tscn" id="1_jl8x7"]
 [ext_resource type="Script" path="res://tscn_files/level_7.gd" id="1_oc54p"]
 [ext_resource type="PackedScene" uid="uid://cwyyg27diiayw" path="res://tscn_files/player.tscn" id="2_d528j"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="3_furcu"]
@@ -130,6 +130,7 @@ offset_right = 258.95
 offset_bottom = 395.23
 text = "Tracklist:
 Opening - Brejeiro, Bola Sete
+Dojo song - Solamente una vez, Bola Sete
 Stage 1 - Bacarra, Bola sete
 Stage 2 - Odeon, Bola Sete
 Stage 3 - Concolacao, Bola Sete
@@ -139,7 +140,7 @@ Stage 5 boss - Meu Mundo Diferente, Bola Sete
 Ghost fight - Prelude no 1, Bola Sete
 Challenger fight - Corcovado, Oscar Peterson
 Ending - Por um Amor by Bola Sete
-Dojo song - Solamente una vez, Bola Sete"
+"
 horizontal_alignment = 1
 
 [node name="next_button" parent="." instance=ExtResource("3_furcu")]
@@ -150,6 +151,7 @@ offset_right = 1093.0
 offset_bottom = 598.0
 
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="start_game" from="HUD" to="challenger" method="_on_hud_start_game"]
 [connection signal="is_dead" from="Player" to="." method="_on_player_is_dead"]
 [connection signal="died" from="challenger" to="." method="_on_challenger_died"]
 [connection signal="hit" from="challenger" to="." method="_on_challenger_hit"]

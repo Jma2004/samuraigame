@@ -7,11 +7,7 @@ signal hit
 signal player_parry
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$arm/AnimationPlayer.play("side_slash")
-	await get_tree().create_timer(2).timeout
-	$body/AnimationPlayer.play("walk")
-	$arm/AnimationPlayer.play("RESET")
-	$attack_timer.start()
+	
 	pass # Replace with function body.
 
 
@@ -75,4 +71,13 @@ func _on_shield_area_entered(area):
 
 func _on_attack_timer_timeout():
 	attack(attacks.pick_random())
+	pass # Replace with function body.
+
+
+func _on_hud_start_game():
+	$arm/AnimationPlayer.play("side_slash")
+	await get_tree().create_timer(2).timeout
+	$body/AnimationPlayer.play("walk")
+	$arm/AnimationPlayer.play("RESET")
+	$attack_timer.start()
 	pass # Replace with function body.

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://crcf5jko05l08" path="res://tscn_files/enemy_3.tscn" id="3_5oxqn"]
 [ext_resource type="PackedScene" uid="uid://0jv6x1o2h56y" path="res://tscn_files/enemy_2.tscn" id="3_a3ldo"]
 [ext_resource type="PackedScene" uid="uid://dcycrhjhet12u" path="res://tscn_files/red_enemy.tscn" id="3_nb50p"]
-[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/hud.tscn" id="7_dlik6"]
+[ext_resource type="PackedScene" uid="uid://b0w5t6ly2ty46" path="res://tscn_files/HUD.tscn" id="7_dlik6"]
 [ext_resource type="Script" path="res://tscn_files/camera.gd" id="8_nf6f5"]
 [ext_resource type="PackedScene" path="res://tscn_files/next_button.tscn" id="8_wbkjb"]
 [ext_resource type="PackedScene" uid="uid://dcp8wakfxwa75" path="res://tscn_files/brittle_bridge.tscn" id="9_l0yhr"]
@@ -61,7 +61,7 @@ mob_scene = ExtResource("12_b3nm3")
 mob_scene_2 = ExtResource("3_nb50p")
 boss_scene = ExtResource("11_hvay5")
 y_position = 361
-num_bosses = 1
+num_bosses = 2
 next_level = 3
 player_start_position = Vector2(571, 361)
 metadata/_edit_horizontal_guides_ = []

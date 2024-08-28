@@ -44,8 +44,6 @@ func _on_next_button_next_pressed(next_scene):
 	goto_scene(next_scene)
 	if get_tree().paused:
 		get_tree().paused = false
-	if Global.checkpoint_reached:
-		Global.checkpoint_reached = false
 	pass # Replace with function body.
 
 func _on_player_death():

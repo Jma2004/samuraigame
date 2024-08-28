@@ -6,6 +6,7 @@ var player
 @export var idle_speed = 150
 @export var dash_speed = 600
 @export var final_phase = false
+@export var first_phase = false
 var health = 7
 var arm1_parried = false
 var arm2_parried = false
@@ -24,22 +25,26 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	scale.x = (position.x - Global.player_position.x)/abs(position.x - Global.player_position.x)
 	if body.current_animation == "dance":
+		scale.x = (position.x - Global.player_position.x)/abs(position.x - Global.player_position.x)
 		position.x += idle_speed*delta
-		position.x = clamp(position.x, Global.screen_bounds[0], Global.screen_bounds[1] - 200)
+		position.x = clamp(position.x, Global.screen_bounds[0], Global.screen_bounds[1] - 100)
 	elif body.current_animation == "jump_up":
 		position.y -= 1000*delta
-	elif body.current_animation == "side_slash":
-		position.x -= dash_speed*delta*scale.x
 	pass
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	boss_appeared.emit()
-	await get_tree().create_timer(1).timeout
-	set_process(true)
-	body.play("dance")
+	if first_phase:
+		await get_tree().create_timer(1).timeout
+		set_process(true)
+		body.play("dance")
+		attack()
+	else:
+		set_process(true)
+		body.play("dance")
+		attack()
 	pass # Replace with function body.
 
 
@@ -83,6 +88,7 @@ func _on_area_entered(area):
 	pass # Replace with function body.
 
 func death():
+	set_process(false)
 	$attack_timer.stop()
 	body.play("death")
 	died.emit()

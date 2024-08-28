@@ -17,6 +17,7 @@ func _ready():
 	screensize = get_viewport_rect().size
 	$shield.shield_health = Global.player_shield
 	$shield.update_shield()
+	Global.player_position = position
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	velocity = Vector2.ZERO

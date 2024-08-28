@@ -14,7 +14,7 @@ signal boss_spawn
 signal level_completed
 @export var next_level = 2
 @export var player_start_position = Vector2(571, y_position)
-@export var checkpoint_position: int
+@export var checkpoint_position:= 576
 @export var check_point_music: AudioStreamMP3
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -99,6 +99,7 @@ func start_screen():
 	else:
 		$Player.position = Vector2(checkpoint_position, y_position)
 		$Camera2D.position.x = checkpoint_position - 575
+		Global.screen_bounds = [checkpoint_position - 576, checkpoint_position + 576]
 		$Music.stop()
 	not_playing()
 
@@ -154,6 +155,7 @@ func _on_stop_area_entered(area):
 
 
 func _on_stop_2_area_entered(area):
+	$stop2/CollisionShape2D.set_deferred("disabled", true)
 	spawn = mob_scene_2
 	$Camera2D.set_process(false)
 	$mobtimer.wait_time = 3
@@ -164,6 +166,7 @@ func _on_stop_2_area_entered(area):
 
 
 func _on_stop_3_area_entered(area):
+	$stop3/CollisionShape2D.set_deferred("disabled", true)
 	Global.screen_bounds = [15010, 16140]
 	$Camera2D.set_process(false)
 	spawn = mob_scene
