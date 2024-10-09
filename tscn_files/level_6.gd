@@ -67,13 +67,12 @@ func _on_player_is_dead():
 	$Timer.stop()
 	$oldman_timer.stop()
 	$finalboss_timer.stop()
-	Global.player_health = 5
 	var fade_out = create_tween()
 	fade_out.tween_property(self, "modulate", Color(0,0,0,1), 3)
 	fade_out.parallel().tween_property($TileMap, "modulate", Color(0,0,0,1), 3)
 	fade_out.parallel().tween_property($Music, "volume_db", -80, 3)
-	await get_tree().create_timer(4).timeout
-	$next_button.next_pressed.emit($next_button.next_scene)
+	await get_tree().create_timer(3).timeout
+	Global.player_died.emit()
 	pass # Replace with function body.
 
 func spawn_old_man():

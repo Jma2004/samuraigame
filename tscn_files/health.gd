@@ -11,9 +11,10 @@ func set_health(health):
 		add_heart()
 
 func delete_heart():
-	var deleted_heart = get_child(num_hearts - 1)
-	deleted_heart.delete()
-	num_hearts -= 1
+	if num_hearts > 0:
+		var deleted_heart = get_child(num_hearts - 1)
+		deleted_heart.delete()
+		num_hearts -= 1
 
 func add_heart():
 	var new_heart = heart.instantiate()

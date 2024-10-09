@@ -45,12 +45,10 @@ func _on_challenger_died():
 	game_over.set_parallel(true)
 	game_over.tween_property($Music, "volume_db", -80, 3)
 	game_over.tween_property($TileMap, "modulate", Color(0.01,0.01,0.01), 3)
-	game_over.tween_property($challenger, "modulate", Color(0.01,0.01,0.01), 3)
 	game_over.tween_property($HUD, "visible", false, 3)
 	game_over.set_parallel(false)
 	game_over.tween_property($Music, "stream", end_song, 0)
 	game_over.tween_property($Music, "volume_db", -3, 0)
 	game_over.tween_property($Music, "playing", true, 0)
 	game_over.tween_property($game_over, "visible", true, 0)
-	$challenger.queue_free()
 	pass # Replace with function body.

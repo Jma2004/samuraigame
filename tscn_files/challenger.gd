@@ -41,7 +41,10 @@ func attack(attackstring):
 
 func death():
 	died.emit()
+	$body/AnimationPlayer.play("death")
 	set_process(false)
+	$attack_timer.stop()
+	set_deferred("monitoring", false)
 	pass
 
 
